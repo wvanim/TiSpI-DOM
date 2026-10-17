@@ -130,7 +130,7 @@ Any DOM content: text, image, SVG, video, a component.
 # Example: a button
 <p align="center">
   <a href="https://www.wvanim.fr/_demo/tispi_button001.png">
-    <img src="https://www.wvanim.fr/_demo/tispi_button001.png" alt="The button in the Time/Space tree" width="400">
+    <img src="https://www.wvanim.fr/_demo/tispi_button001.png" alt="The button in the Time/Space tree" width="600">
   </a><br>
   <sub>Click to enlarge (Ctrl + click: new tab)</sub>
 </p>
