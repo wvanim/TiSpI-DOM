@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or idea about the model
+    url: https://github.com/wvanim/TiSpI/discussions
+    about: Ideas are stated, examined, then kept or closed in Discussions. Please give what the idea brings, what it costs, and an example tree.
