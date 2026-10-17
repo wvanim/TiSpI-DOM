@@ -1,0 +1,48 @@
+title: "[Idea] "
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        An idea about the model is stated, examined, then kept or closed.
+        Before posting, check DECISIONS.md: the idea may already have been examined.
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Layer
+      description: Which layer does the idea concern? See CONTRIBUTING.md.
+      options:
+        - Theoretical model
+        - Tispi DOM
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: The idea
+      description: State it in a few sentences, with the words of the glossary (GLOSSARY.md).
+    validations:
+      required: true
+  - type: textarea
+    id: brings
+    attributes:
+      label: What it brings
+      description: What becomes possible or simpler, in the context TiSpI defines.
+    validations:
+      required: true
+  - type: textarea
+    id: costs
+    attributes:
+      label: What it costs
+      description: New rules, exceptions, properties that would need arbitration, documents to change.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example tree
+      description: A tree showing the case, before and after if relevant.
+      render: text
+    validations:
+      required: true
