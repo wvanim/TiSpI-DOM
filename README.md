@@ -30,7 +30,7 @@ TiSpI provides:
 </p>
 
 - a structure **particularly well suited to visual editors**, such as e-anim / WvAnim — [video](https://www.wvanim.fr/p/present_wvanim_philippe_destrumel.mp4)
-- a **structural data model** — [documentation](https://github.com/wvanim/TiSpI/tree/main/Document/doc_structurel.md)
+- a **structural data model** — [documentation](https://github.com/wvanim/TiSpI-DOM/blob/main/Document/doc_structurel.md)
 - the **Time/Space Interleaved structural standard** itself
 
 ---
