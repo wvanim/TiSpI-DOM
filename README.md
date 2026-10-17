@@ -132,7 +132,7 @@ Any DOM content: text, image, SVG, video, a component.
   <a href="https://www.wvanim.fr/_demo/tispi_button001.png">
     <img src="https://www.wvanim.fr/_demo/tispi_button001.png" alt="The button in the Time/Space tree" width="400">
   </a><br>
-  <sub>Click to enlarge</sub>
+  <sub>Click to enlarge (Ctrl + click: new tab)</sub>
 </p>
 
 A button is one `<tsi-p>` with three Faces and three tracks:
