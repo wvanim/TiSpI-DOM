@@ -76,7 +76,7 @@ Piece                        // root
     Face (oval)              // FaceRender
 ```
 
-<img width="1101" height="742" alt="tispi_tree_simple" src="https://github.com/user-attachments/assets/498a9f7f-0708-4263-9da8-2d2d20b4a6c3" />
+<img width="1101" height="742" alt="tispi_tree_simple" src="https://www.wvanim.fr/_demo/tispi_tree_simple.png" />
 
 ---
 
