@@ -1,56 +1,58 @@
-# TiSpI et SyncCharts : deux chemins vers le même arbre
+# TiSpI and SyncCharts: two roads to the same tree
 
-Une comparaison de leur structure, de leur rapport au temps et de leurs mécanismes de contrôle, accompagnée d’exemples [TiSpI](https://github.com/wvanim/TiSpI-DOM).
+A comparison of their structure, of their relation to time and of their control mechanisms, with [TiSpI](https://github.com/wvanim/TiSpI-DOM) examples.
 
-## Sommaire
+The main difference lies in synchronization. In SyncCharts, the STGs of a composite state follow the logical instants shared by the whole syncChart. In TiSpI, each group of Pieces has its own time: the Pieces of a group are synchronized with one another, and each group remains independent of the others.
 
-1. [Origines et objet de la comparaison](#origines)
-2. [Une structure commune : l’alternance stricte](#structure)
-3. [Le temps : sélection des états et autonomie des plateaux](#temps)
-4. [Les événements et les changements d’état](#evenements)
-5. [Les trois usages de la barre de temps](#usages)
-6. [Le contrôle : suspension, préemption et sortie animée](#controle)
-7. [Ce que chaque modèle apporte](#apports)
-8. [Références](#references)
+## Contents
+
+1. [Origins and purpose of the comparison](#origins)
+2. [A shared structure: strict alternation](#structure)
+3. [Time: state selection and autonomous plates](#time)
+4. [Events and changes of state](#events)
+5. [The three uses of the time bar](#uses)
+6. [Control: suspension, preemption and animated exit](#control)
+7. [What each model brings](#contributions)
+8. [References](#references)
 
 ---
 
-<a id="origines"></a>
+<a id="origins"></a>
 
-## 1. Origines et objet de la comparaison
+## 1. Origins and purpose of the comparison
 
-SyncCharts, publié par Charles André en 1996, est un formalisme visuel fondé sur Esterel. [Présentation originale](https://www-sop.inria.fr/members/Charles.Andre/CA%20Publis/SYNCCHARTS/overview.html)
+SyncCharts, published by Charles André in 1996, is a visual formalism based on Esterel. [Original presentation](https://www-sop.inria.fr/members/Charles.Andre/CA%20Publis/SYNCCHARTS/overview.html)
 
-TiSpI est né en 1999 dans e-anim, devenu WvAnim, pour uniformiser la composition et l’édition des animations.
+TiSpI was born in 1999 in e-anim, later WvAnim, to unify the composition and the editing of animations.
 
-Développés indépendamment, ils partagent le même arbre de composition, mais diffèrent par leurs règles d’exécution et leur rapport au temps.
+Developed independently, they share the same composition tree, but differ in their execution rules and in their relation to time.
 
-Les exemples HTML de cette page sont écrits pour le moteur TiSpI.
+The HTML examples on this page are written for the TiSpI engine.
 
 <a id="structure"></a>
 
-## 2. Une structure commune : l’alternance stricte
+## 2. A shared structure: strict alternation
 
-### 2.1. Correspondance des nœuds
+### 2.1. Correspondence of nodes
 
-Dans l’arbre de contenance de SyncCharts, un état composé contient des graphes de transitions d’états, ou **STG**, qui contiennent eux-mêmes des états. Après omission des cellules réactives intermédiaires, les catégories **état / STG alternent strictement sur chaque chemin**. [Arbre de contenance, §4.1](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf#page=10)
+In the containment tree of SyncCharts, a composite state contains state transition graphs, or **STGs**, which themselves contain states. Once the intermediate reactive cells are left out, the categories **state / STG strictly alternate on every path**. [Containment tree, §4.1](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf#page=10)
 
-TiSpI plonge les états dans la dimension temporelle. La règle devient : les états sont successifs dans le temps. Ainsi émerge la relation naturelle entre les états et l’animation.
+TiSpI places states in the dimension of time. The rule becomes: states follow one another in time. The natural relation between states and animation emerges from this.
 
-La correspondance avec TiSpI est directe :
+The correspondence with TiSpI is direct:
 
-| SyncCharts | TiSpI | Rôle dans la composition |
+| SyncCharts | TiSpI | Role in the composition |
 |---|---|---|
-| STG | **Pièce** | Porte les alternatives entre lesquelles s’effectue la sélection. |
-| État composé | **Face de groupe** | Réunit les branches actives ensemble. |
-| État simple | **Face de rendu** | Termine la décomposition structurelle. |
+| STG | **Piece** | Holds the alternatives among which the selection is made. |
+| Composite state | **Group Face** | Gathers the branches that are active together. |
+| Simple state | **Render Face** | Ends the structural decomposition. |
 
-Cette correspondance concerne la place des éléments dans l’arbre. Le contenu visuel d’une Face de rendu appartient à TiSpI.
+This correspondence concerns the place of the elements in the tree. The visual content of a render Face belongs to TiSpI.
 
-Dans TiSpI, une Pièce sélectionne une Face, ou aucune. Une Face de groupe réunit des Pièces, dont chacune possède ses propres Faces. La même composition se répète à toute profondeur :
+In TiSpI, a Piece selects one Face, or none. A group Face gathers Pieces, each of which has its own Faces. The same composition repeats at any depth:
 
 ```text
-Pièce → Face de groupe → Pièces → Faces…
+Piece → group Face → Pieces → Faces…
 ```
 <p align="center">
   <a href="https://www.wvanim.fr/_demo/demo_animated_html/tispi_2_pieces_faces/demo_structure_3D_2pc_tsi_module.html">
@@ -63,19 +65,19 @@ Pièce → Face de groupe → Pièces → Faces…
   </a>
 </p>
 
-### 2.2. Sélection exclusive et absence de Face
+### 2.2. Exclusive selection and the absence of a Face
 
-Le cas **sans Face active** est explicite dans TiSpI : une Pièce admet zéro ou une Face active. Dans la configuration normale d’un syncChart, chaque STG actif possède exactement un état actif. [Règles de configuration, §4.2](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf#page=10)
+The case **with no active Face** is explicit in TiSpI: a Piece has zero or one active Face. In the normal configuration of a syncChart, each active STG has exactly one active state. [Configuration rules, §4.2](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf#page=10)
 
-### 2.3. Exemple : les trois états d’un bouton
+### 2.3. Example: the three states of a button
 
 ```text
 SyncCharts                         TiSpI
 ────────────────────────           ────────────────────────
-Button (STG)                       Pièce button
- ├─ Out    (état simple)             ├─ Face out    (rendu)
- ├─ Over   (état simple)             ├─ Face over   (rendu)
- └─ Pushed (état simple)             └─ Face pushed (rendu)
+Button (STG)                       Piece button
+ ├─ Out    (simple state)            ├─ Face out    (render)
+ ├─ Over   (simple state)            ├─ Face over   (render)
+ └─ Pushed (simple state)            └─ Face pushed (render)
 ```
 
 ```html
@@ -88,56 +90,56 @@ Button (STG)                       Pièce button
 </tsi-p>
 ```
 
-<a id="temps"></a>
+<a id="time"></a>
 
-## 3. Le temps : sélection des états et autonomie des plateaux
+## 3. Time: state selection and autonomous plates
 
-### 3.1. Ce qui sélectionne l’état
+### 3.1. What selects the state
 
-Dans SyncCharts, l’état actif change par des transitions, selon les signaux, les conditions et la terminaison des activités. Dans TiSpI, la position temporelle détermine la Face active au moyen de la piste `&face`. Un événement peut ainsi changer la Face en déplaçant la Pièce vers un autre moment.
+In SyncCharts, the active state changes through transitions, according to signals, conditions and the termination of activities. In TiSpI, the position in time determines the active Face, through the `&face` track. An event can thus change the Face by moving the Piece to another moment.
 
-### 3.2. Des moments accessibles sans ordre de parcours imposé
+### 3.2. Moments reached without an imposed order
 
-La barre de temps présente des **cases de moments**, accessibles directement par un `goto` vers un numéro de frame ou une balise. Leur sélection n’impose aucun ordre de parcours : on peut atteindre un moment, y rester, en choisir un autre ou revenir au précédent.
+The time bar shows **moments**, which can be reached directly by a `goto` to a frame number or to a mark. Selecting them imposes no order: one can reach a moment, stay there, choose another, or come back to the previous one.
 
-Un déroulement ordonné apparaît lorsqu’un intervalle est à parcourir. Une transition TiSpI représente également un intervalle, sous une autre forme : elle possède sa propre durée et est portée par une clé, au lieu d’occuper les moments de la barre.
+An ordered course appears when an interval has to be played. A TiSpI transition is an interval too, in another form: it has its own duration and is carried by a key, instead of occupying moments of the bar.
 
-Dans SyncCharts, les passages entre états sont décrits par les arcs du modèle. Dans TiSpI, un appel peut atteindre directement un moment de la barre.
+In SyncCharts, the passages between states are described by the arcs of the model. In TiSpI, a call can reach any moment of the bar directly.
 
-### 3.3. Temps global et temps propre au plateau
+### 3.3. Global time and the plate's own time
 
-**Le groupe est une unité de contrôle dans les deux modèles ; il est nativement une unité de temps dans TiSpI.**
+**The group is a unit of control in both models; in TiSpI, it is natively a unit of time.**
 
 | Aspect | SyncCharts | TiSpI |
 |---|---|---|
-| Référence temporelle | Les instants logiques sont communs à tout le syncChart, à tous les niveaux. | Chaque plateau possède son propre temps : durée, position et arrêts. |
-| Branches d’un groupe | Les STG d’un état composé participent aux réactions du syncChart. | Les Pièces réunies sur un plateau partagent le temps de ce plateau. |
-| Contrôle local | La suspension d’un état composé gèle son évolution interne. | L’arrêt d’un plateau immobilise sa progression temporelle. |
-| Temps local | Il se construit, en conditionnant l’activité à un signal choisi. | Il est donné : l’autonomie temporelle appartient au plateau lui-même. |
-| Temps commun | Il est donné : ce sont les instants logiques du syncChart. | Il se déclare, en nommant un maître : `&synchro !<clockMaster(world)>`. |
+| Time reference | Logical instants are shared by the whole syncChart, at every level. | Each plate has its own time: duration, position and stops. |
+| Branches of a group | The STGs of a composite state take part in the reactions of the syncChart. | The Pieces gathered on a plate share the time of that plate. |
+| Local control | Suspending a composite state freezes its internal evolution. | Stopping a plate halts its progress in time. |
+| Local time | It is built, by making activity depend on a chosen signal. | It is given: temporal autonomy belongs to the plate itself. |
+| Shared time | It is given: the logical instants of the syncChart. | It is declared, by naming a master: `&synchro !<clockMaster(world)>`. |
 
-Les deux modèles savent donc faire les deux : ils diffèrent par ce qui est donné et par ce qui se déclare.
+Both models can therefore do both: they differ in what is given and in what is declared.
 
-La suspension locale de SyncCharts s’inscrit dans ses instants logiques communs. Elle ne donne pas, à elle seule, une durée et une position propres à l’état composé. [Instants et suspension, §2.3](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf#page=5)
+Local suspension in SyncCharts takes place within its shared logical instants. On its own, it does not give the composite state a duration and a position of its own. [Instants and suspension, §2.3](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf#page=5)
 
-<a id="evenements"></a>
+<a id="events"></a>
 
-## 4. Les événements et les changements d’état
+## 4. Events and changes of state
 
-### 4.1. Décrire un passage d’un état à un autre
+### 4.1. Describing a passage from one state to another
 
-Une transition SyncCharts relie un état source à un état cible. Elle peut porter un déclencheur, une garde et un effet. Dans TiSpI, une piste d’action permet de réunir ces rôles :
+A SyncCharts transition links a source state to a target state. It can carry a trigger, a guard and an effect. In TiSpI, an action track brings these roles together:
 
-| Rôle | Écriture TiSpI |
+| Role | TiSpI writing |
 |---|---|
-| Contexte de départ | Le moment auquel l’action est définie. |
-| Événement déclencheur | La piste d’action, par exemple `&onClick`. |
-| Condition éventuelle | Un test dans le script. |
-| Destination | Un moment ou une balise visé par le `goto`. |
+| Starting context | The moment at which the action is defined. |
+| Triggering event | The action track, for example `&onClick`. |
+| Optional condition | A test in the script. |
+| Destination | A moment or a mark targeted by the `goto`. |
 
-Un script peut également demander ce déplacement depuis un autre point de la composition.
+A script can also request this move from another point of the composition.
 
-### 4.2. Exemple : ouvrir et fermer une porte
+### 4.2. Example: opening and closing a door
 
 ```html
 <tsi-p id="door" data-tsi="&synchro 0:stop;
@@ -149,31 +151,31 @@ Un script peut également demander ce déplacement depuis un autre point de la c
 </tsi-p>
 ```
 
-Au moment `0`, nommé `CLOSED`, le clic mène à `OPEN`. Au moment `1`, nommé `OPEN`, il ramène à `CLOSED`.
+At moment `0`, named `CLOSED`, a click leads to `OPEN`. At moment `1`, named `OPEN`, it leads back to `CLOSED`.
 
-La piste `&mark` nomme les moments ; la piste `&face` leur associe les Faces ; la piste `&onClick` définit les déplacements déclenchés par le clic.
+The `&mark` track names the moments; the `&face` track associates Faces with them; the `&onClick` track defines the moves triggered by a click.
 
-<a id="usages"></a>
+<a id="uses"></a>
 
-## 5. Les trois usages de la barre de temps
+## 5. The three uses of the time bar
 
-Une barre de temps TiSpI peut servir à représenter des états, à animer des propriétés ou à suivre un maître.
+A TiSpI time bar can represent states, animate properties, or follow a master.
 
-| Usage | Dans TiSpI | Dans SyncCharts |
+| Use | In TiSpI | In SyncCharts |
 |---|---|---|
-| **Barre d’états** : suivre une valeur discrète | Une Pièce reste sur un moment et change de moment à la suite d’un événement. | Un graphe d’états exclusifs évolue selon ses transitions. |
-| **Animation** : parcourir des intervalles | Les clés définissent les valeurs ; les interpolations et les effets produisent leur évolution. | Une évolution peut être calculée ou reçue aux instants logiques, puis transmise par des signaux valués. |
-| **Synchronisation sur un maître** : suivre une valeur évolutive | Un plateau suit un maître, par exemple une vidéo, un curseur ou une Pièce parente. | Un événement récurrent peut servir de référence à une progression logique ; des signaux valués peuvent transmettre la position du maître. |
+| **States bar**: following a discrete value | A Piece stays on a moment, and moves to another after an event. | A graph of exclusive states evolves through its transitions. |
+| **Animation**: playing intervals | Keys define the values; interpolations and effects produce their evolution. | An evolution can be computed or received at the logical instants, then carried by valued signals. |
+| **Synchronization on a master**: following an evolving value | A plate follows a master, for example a video, a slider or a parent Piece. | A recurring event can serve as the reference of a logical progression; valued signals can carry the master's position. |
 
-### 5.1. La barre d’états
+### 5.1. The states bar
 
-Le bouton de la [section 2](#structure) illustre cet usage. Ses moments correspondent aux configurations `OUT`, `OVER` et `PUSHED`. La barre reste sur le moment sélectionné jusqu’au prochain changement.
+The button of [section 2](#structure) illustrates this use. Its moments correspond to the configurations `OUT`, `OVER` and `PUSHED`. The bar stays on the selected moment until the next change.
 
-Ce fonctionnement rejoint l’organisation en états exclusifs de SyncCharts.
+This behaviour matches the organization in exclusive states of SyncCharts.
 
-### 5.2. L’animation déclarative
+### 5.2. Declarative animation
 
-TiSpI décrit l’évolution par des clés et des intervalles. Les valeurs intermédiaires sont calculées à partir de cette description.
+TiSpI describes evolution through keys and intervals. The intermediate values are computed from this description.
 
 ```html
 <tsi-p id="mover" data-tsi="&pos  0:0,0;  120:400,0;  240:0,0;
@@ -183,13 +185,13 @@ TiSpI décrit l’évolution par des clés et des intervalles. Les valeurs inter
 </tsi-p>
 ```
 
-La piste `&pos` décrit un aller-retour. La piste `&face` sélectionne `day`, puis `night`, avec un effet `fade` de durée `20` porté par la clé d’arrivée.
+The `&pos` track describes a round trip. The `&face` track selects `day`, then `night`, with a `fade` effect of duration `20` carried by the arrival key.
 
-SyncCharts peut transporter les valeurs d’une animation au moyen de signaux valués. Le calcul des interpolations et leur application au rendu relèvent alors de l’application. Ses réactions ont lieu à des instants discrets ; cela n’interdit pas de représenter des valeurs numériques issues d’une grandeur continue. [Signaux valués, §8.6](https://webusers.i3s.unice.fr/~map/WEBSPORTS/SyncCharts/RR200324.pdf#page=57)
+SyncCharts can carry the values of an animation through valued signals. Computing the interpolations and applying them to the rendering then belongs to the application. Its reactions happen at discrete instants; this does not prevent it from representing numerical values taken from a continuous quantity. [Valued signals, §8.6](https://webusers.i3s.unice.fr/~map/WEBSPORTS/SyncCharts/RR200324.pdf#page=57)
 
-### 5.3. Exemple : une attente avec une barre de progression
+### 5.3. Example: a wait with a progress bar
 
-Dans TiSpI, l’attente peut être représentée par un sous-groupe dont le temps parcourt une durée, avec une action au dernier moment. Ce sous-groupe peut afficher sa progression pendant l’attente.
+In TiSpI, a wait can be represented by a sub-group whose time plays a duration, with an action at its last moment. This sub-group can show its progress during the wait.
 
 ```html
 <tsi-p id="screen" data-tsi="&synchro 0:stop;  
@@ -202,13 +204,13 @@ Dans TiSpI, l’attente peut être représentée par un sous-groupe dont le temp
 </tsi-p>
 ```
 
-La Pièce `screen` reste sur `WAIT` pendant que le plateau du groupe `waiting` progresse. Au moment `60`, l’action demande le passage à `NEXT`. L’exemple utilise directement l’autonomie temporelle du sous-groupe.
+The Piece `screen` stays on `WAIT` while the plate of the group `waiting` progresses. At moment `60`, the action requests the move to `NEXT`. The example directly uses the temporal autonomy of the sub-group.
 
-Dans SyncCharts, une attente peut être construite en comptant les occurrences d’un signal d’horloge. Soixante occurrences représentent une seconde si ce signal est à 60 Hz. De même, une durée de 60 frames dans TiSpI représente une seconde à une cadence de 60 frames par seconde.
+In SyncCharts, a wait can be built by counting the occurrences of a clock signal. Sixty occurrences represent one second if this signal runs at 60 Hz. In the same way, a duration of 60 frames in TiSpI represents one second at a rate of 60 frames per second.
 
-### 5.4. La synchronisation sur un maître
+### 5.4. Synchronization on a master
 
-Un plateau TiSpI peut suivre la position fournie par un média ou une autre source. La valeur du maître détermine alors la position temporelle du plateau.
+A TiSpI plate can follow the position given by a media element or another source. The master's value then determines the position of the plate in time.
 
 ```html
 <tsi-p id="player" data-tsi="&synchro !<face> 0:;  &pos 40,40;">
@@ -216,74 +218,74 @@ Un plateau TiSpI peut suivre la position fournie par un média ou une autre sour
 </tsi-p>
 ```
 
-L’exemple associe la synchronisation à une Face vidéo. Le média `avion.mp4` doit être disponible à l’emplacement indiqué.
+The example ties the synchronization to a video Face. The media file `avion.mp4` must be available at the given location.
 
-Le rapprochement avec le **temps logique multiforme** porte sur le choix de la référence : un événement récurrent peut servir d’unité de progression. Une position de média peut aussi être transmise comme valeur. TiSpI intègre le suivi de cette position dans le fonctionnement du plateau ; l’échantillonnage de la valeur du maître ne suffit pas, à lui seul, à rendre les deux mécanismes identiques.
+The comparison with **multiform logical time** concerns the choice of the reference: a recurring event can serve as the unit of progression. A media position can also be carried as a value. TiSpI builds the tracking of this position into the working of the plate; sampling the master's value is not enough, on its own, to make the two mechanisms identical.
 
-<a id="controle"></a>
+<a id="control"></a>
 
-## 6. Le contrôle : suspension, préemption et sortie animée
+## 6. Control: suspension, preemption and animated exit
 
-### 6.1. Suspendre une progression
+### 6.1. Suspending a progression
 
-Dans SyncCharts, la suspension gèle l’évolution interne d’un état composé : tant qu’elle dure, l’intérieur ne réagit plus aux signaux. Dans TiSpI, un plateau arrêté conserve sa position et peut reprendre sa lecture à partir de celle-ci. L’arrêt peut provenir d’une commande ou du maître.
+In SyncCharts, suspension freezes the internal evolution of a composite state: while it lasts, the inside no longer reacts to signals. In TiSpI, a stopped plate keeps its position and can resume playing from it. The stop can come from a command or from the master.
 
-Les deux mécanismes permettent un contrôle local, mais ils ne gèlent pas la même chose. La suspension SyncCharts gèle les réactions. L’arrêt TiSpI ne gèle que le temps : un plateau arrêté continue de réagir aux événements. Le bouton de la [section 2](#structure) en est l’exemple : son plateau est arrêté par `&synchro 0:stop`, et il réagit au survol.
+Both mechanisms give local control, but they do not freeze the same thing. SyncCharts suspension freezes reactions. A TiSpI stop freezes only time: a stopped plate keeps reacting to events. The button of [section 2](#structure) is the example: its plate is stopped by `&synchro 0:stop`, and it reacts to the pointer hovering over it.
 
-### 6.2. Préemption forte, préemption faible et durée de sortie
+### 6.2. Strong preemption, weak preemption and exit duration
 
-Les préemptions de SyncCharts définissent l’ordre des traitements **à l’intérieur d’un même instant logique**. Une sortie animée TiSpI possède une durée. Cette distinction précise la portée de la comparaison. [Préemption, §5.4](https://webusers.i3s.unice.fr/~map/WEBSPORTS/SyncCharts/RR200324.pdf#page=27)
+SyncCharts preemptions define the order of processing **within one logical instant**. A TiSpI animated exit has a duration. This distinction sets the scope of the comparison. [Preemption, §5.4](https://webusers.i3s.unice.fr/~map/WEBSPORTS/SyncCharts/RR200324.pdf#page=27)
 
-| Mécanisme SyncCharts | Rapprochement dans TiSpI | Portée de la correspondance |
+| SyncCharts mechanism | Counterpart in TiSpI | Scope of the correspondence |
 |---|---|---|
-| **Préemption forte** : la sortie empêche la réaction interne de l’état dans l’instant courant. | Changement de Face sans effet de sortie : la branche sortante devient immédiatement inactive. | La sortie est immédiate dans les deux descriptions ; les règles de priorité de réaction restent propres à chaque moteur. |
-| **Préemption faible** : l’intérieur réagit dans l’instant courant, puis l’état est quitté. | La clé de la branche sortante posée sur la frame de bascule est jouée, puis la Face joue sa sortie sur sa durée. | La clé jouée à la bascule est la préemption faible au sens strict ; la sortie qui dure en est une extension. |
+| **Strong preemption**: leaving prevents the internal reaction of the state in the current instant. | A change of Face without exit effect: the outgoing branch becomes inactive at once. | Leaving is immediate in both descriptions; the priority rules of reactions remain specific to each engine. |
+| **Weak preemption**: the inside reacts in the current instant, then the state is left. | The key of the outgoing branch placed on the switching frame is played, then the Face plays its exit over its duration. | The key played at the switch is weak preemption in the strict sense; the exit that lasts is an extension of it. |
 
-### 6.3. Exemple : une sortie animée définie par la Face
+### 6.3. Example: an animated exit defined by the Face
 
 ```html
 <tsi-f id="front" data-tsi="&opacity 0:1; !<30:easeOut> 0:0">…</tsi-f>
 ```
 
-Lorsque sa Pièce quitte la Face `front`, celle-ci effectue son fondu de sortie sur une durée de 30 frames. La Face porte la description de sa sortie ; la Pièce qui la sélectionne n’a pas à en connaître les détails.
+When its Piece leaves the Face `front`, the Face fades out over 30 frames. The Face carries the description of its exit; the Piece that selects it does not need to know its details.
 
-Aujourd’hui, cette section de sortie traite les pistes de valeurs. Les pistes d’actions et la clé posée sur la frame de bascule ne sont pas encore jouées par le moteur.
+Today, this exit section handles value tracks. Action tracks, and the key placed on the switching frame, are not yet played by the engine.
 
-<a id="apports"></a>
+<a id="contributions"></a>
 
-## 7. Ce que chaque modèle apporte
+## 7. What each model brings
 
-### 7.1. SyncCharts : une sémantique synchrone formelle
+### 7.1. SyncCharts: a formal synchronous semantics
 
-SyncCharts hérite de la sémantique synchrone d’Esterel : réactions instantanées, causalité constructive et déterminisme. L’analyse de causalité peut conduire à rejeter un modèle non constructif. Ces propriétés concernent les règles d’exécution du modèle, au-delà de la forme de son arbre. [Sémantique et compilation, §4.3](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf#page=11)
+SyncCharts inherits the synchronous semantics of Esterel: instantaneous reactions, constructive causality and determinism. Causality analysis can lead to rejecting a non-constructive model. These properties concern the execution rules of the model, beyond the shape of its tree. [Semantics and compilation, §4.3](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf#page=11)
 
-### 7.2. TiSpI : le temps et le rendu dans la composition
+### 7.2. TiSpI: time and rendering in the composition
 
-TiSpI associe à cette organisation de l’arbre :
+TiSpI adds to this organization of the tree:
 
-- une sélection des Faces par la position temporelle ;
-- un temps propre à chaque plateau ;
-- des pistes déclaratives, avec leurs clés, effets et durées ;
-- des sorties animées portées par les Faces ;
-- une synchronisation sur la position d’un média ou d’un autre maître.
+- the selection of Faces by position in time;
+- a time of its own for each plate;
+- declarative tracks, with their keys, effects and durations;
+- animated exits carried by the Faces;
+- synchronization on the position of a media element or another master.
 
-Il répartit également les propriétés selon leur cible, qui détermine leur rôle. Cette répartition repose sur une distinction technique précise, et non sur un choix sémantique abstrait.
+It also distributes properties according to their target, which determines their role. This distribution rests on a precise technical distinction, not on an abstract semantic choice.
 
-| Rôle | Ce que les propriétés décrivent |
+| Role | What the properties describe |
 |---|---|
-| **Structurel** | La configuration de l’arbre actif. |
-| **Spatial** | La position et l’encombrement des Pièces sur un plateau. |
-| **Décoratif** | L’apparence interne des Faces. |
+| **Structural** | The configuration of the active tree. |
+| **Spatial** | The position and the room taken by the Pieces on a plate. |
+| **Decorative** | The internal appearance of the Faces. |
 
 <a id="references"></a>
 
-## 8. Références
+## 8. References
 
-- Charles André, *SyncCharts: A Visual Representation of Reactive Behaviors*, rapport RR 95–52, révision RR 96–56, 1996. [Présentation](https://www-sop.inria.fr/members/Charles.Andre/CA%20Publis/SYNCCHARTS/overview.html)
-- Charles André, *Computing SyncCharts Reactions*, version atelier de 2003, publiée dans ENTCS en 2004. [Version atelier](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf) · [Version ENTCS](https://webusers.i3s.unice.fr/~map/WEBSPORTS/Documents/2003a2005/entcs04-text.pdf)
-- Charles André, *Semantics of SyncCharts*, rapport I3S, avril 2003. [PDF](https://webusers.i3s.unice.fr/~map/WEBSPORTS/SyncCharts/RR200324.pdf)
-- Charles André et Jean-Paul Rigault, *Variations on the Semantics of Graphical Models for Reactive Systems*, 2002. [PDF](https://www.i3s.unice.fr/~map/WEBSPORTS/Documents/1999a2002/SMC02.pdf)
-- Charles André, [publications sur SyncCharts](https://webusers.i3s.unice.fr/~map/WEBSPORTS/SyncCharts/publications.en.html).
-- TiSpI, [dépôt et documentation](https://github.com/wvanim/TiSpI-DOM), notamment `GRAMMAR.md` et `GLOSSARY.md`.
+- Charles André, *SyncCharts: A Visual Representation of Reactive Behaviors*, report RR 95–52, revised as RR 96–56, 1996. [Presentation](https://www-sop.inria.fr/members/Charles.Andre/CA%20Publis/SYNCCHARTS/overview.html)
+- Charles André, *Computing SyncCharts Reactions*, 2003 workshop version, published in ENTCS in 2004. [Workshop version](https://pop-art.inrialpes.fr/~girault/Slap03/Final/andre.pdf) · [ENTCS version](https://webusers.i3s.unice.fr/~map/WEBSPORTS/Documents/2003a2005/entcs04-text.pdf)
+- Charles André, *Semantics of SyncCharts*, I3S report, April 2003. [PDF](https://webusers.i3s.unice.fr/~map/WEBSPORTS/SyncCharts/RR200324.pdf)
+- Charles André and Jean-Paul Rigault, *Variations on the Semantics of Graphical Models for Reactive Systems*, 2002. [PDF](https://www.i3s.unice.fr/~map/WEBSPORTS/Documents/1999a2002/SMC02.pdf)
+- Charles André, [publications on SyncCharts](https://webusers.i3s.unice.fr/~map/WEBSPORTS/SyncCharts/publications.en.html).
+- TiSpI, [repository and documentation](https://github.com/wvanim/TiSpI-DOM), in particular `GRAMMAR.md` and `GLOSSARY.md`.
 
-[Retour au sommaire](#sommaire)
+[Back to contents](#contents)
