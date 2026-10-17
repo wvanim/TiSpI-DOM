@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TiSpI — the day / night disc, step 3 — an effect on each &face key</title>
+<script src="https://cdn.jsdelivr.net/gh/wvanim/TiSpI-DOM@v0.1.1/engine/tispi.min.js"></script>
+</head>
+<body>
+<!-- Step 3 — an effect on each &face key
+     Added: <60:fade> before the keys 120 and 240. An effect is written before the key it leads to; it has its own duration, 60 frames, and ends on its key: the fade starts at frame 60, and at frame 180. -->
+<tsi-pg id="root">
+  <tsi-p id="circle" data-tsi="&size;
+    &face    0:day;   <60:fade> 120:night;  <60:fade> 240:day;
+    &pos     0:0,0<easeIn>;   120:400,0;            240:0,0;">
+    <style>@scope { .disc { width: 80px; height: 80px; border-radius: 50%;
+                            text-align: center; line-height: 80px; } }</style>
+    <tsi-f id="day"   class="disc" style="background-color: gold;">day</tsi-f>
+    <tsi-f id="night" class="disc" style="background-color: midnightblue; color: white;">night</tsi-f>
+  </tsi-p>
+</tsi-pg>
+<script>o_.start(null, 100/6, null, null, document.getElementById("root"));</script>
+</body>
+</html>

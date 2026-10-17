@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TiSpI — the day / night disc, step 5 — an action track</title>
+<script src="https://cdn.jsdelivr.net/gh/wvanim/TiSpI-DOM@v0.1.1/engine/tispi.min.js"></script>
+</head>
+<body>
+<!-- Step 5 — an action track
+     Added: the &onClick track. Its keys are actions, one per moment: a click before frame 120 shows "Youpy", a click from frame 120 on shows "Zzz". -->
+<tsi-pg id="root">
+  <tsi-p id="circle" data-tsi="&size;
+    &face    !<60:fade>   0:day;   120:night;   240:day;
+    &pos     0:0,0<easeIn>;   120:400,0;            240:0,0;
+    &onClick 0:{ alert('Youpy'); };          120:{ alert('Zzz'); };">
+    <style>@scope { .disc { width: 80px; height: 80px; border-radius: 50%;
+                            text-align: center; line-height: 80px; } }</style>
+    <tsi-f id="day"   class="disc" style="background-color: gold;">day</tsi-f>
+    <tsi-f id="night" class="disc" style="background-color: midnightblue; color: white;">night</tsi-f>
+  </tsi-p>
+</tsi-pg>
+<script>o_.start(null, 100/6, null, null, document.getElementById("root"));</script>
+</body>
+</html>
