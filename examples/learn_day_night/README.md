@@ -26,7 +26,7 @@ A frame lasts 100/6 ms: 60 frames make one second, and the round trip of 240 fra
 
 ## Step 1 — the round trip
 
-[step1_move.html](step1_move.html)
+[run](https://www.wvanim.fr/projets_perso/tispi/examples/learn_day_night/step1_move.html) · [code](step1_move.html)
 
 ```text
 &size;
@@ -42,7 +42,7 @@ No transition and no action yet: the movement is linear, and the Faces switch at
 
 ## Step 2 — an interpolation on `&pos`
 
-[step2_ease.html](step2_ease.html)
+[run](https://www.wvanim.fr/projets_perso/tispi/examples/learn_day_night/step2_ease.html) · [code](step2_ease.html)
 
 ```text
 &size;
@@ -58,7 +58,7 @@ An interpolation is written **after a value**. It shapes the interval that follo
 
 ## Step 3 — an effect on each `&face` key
 
-[step3_key_effect.html](step3_key_effect.html)
+[run](https://www.wvanim.fr/projets_perso/tispi/examples/learn_day_night/step3_key_effect.html) · [code](step3_key_effect.html)
 
 ```text
 &size;
@@ -76,7 +76,7 @@ The duration ends with a colon: `<60:fade>`. Before a key, `<60,fade>` is refuse
 
 ## Step 4 — one effect for the whole `&face` track
 
-[step4_track_effect.html](step4_track_effect.html)
+[run](https://www.wvanim.fr/projets_perso/tispi/examples/learn_day_night/step4_track_effect.html) · [code](step4_track_effect.html)
 
 ```text
 &size;
@@ -94,7 +94,7 @@ The colon matters even more here. In the head, `!<60,fade>` is not refused: with
 
 ## Step 5 — an action track
 
-[step5_action.html](step5_action.html)
+[run](https://www.wvanim.fr/projets_perso/tispi/examples/learn_day_night/step5_action.html) · [code](step5_action.html)
 
 ```text
 &size;
