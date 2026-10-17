@@ -128,8 +128,12 @@ Any DOM content: text, image, SVG, video, a component.
 ---
 
 # Example: a button
-
-<img width="830" height="584" alt="im2" src="https://www.wvanim.fr/_demo/tispi_button001.png" />
+<p align="center">
+  <a href="https://www.wvanim.fr/_demo/tispi_button001.png">
+    <img src="https://www.wvanim.fr/_demo/tispi_button001.png" alt="The button in the Time/Space tree" width="400">
+  </a><br>
+  <sub>Click to enlarge</sub>
+</p>
 
 A button is one `<tsi-p>` with three Faces and three tracks:
 
