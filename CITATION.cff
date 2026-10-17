@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you refer to TiSpI, please cite it as below."
+title: "TiSpI — Time/Space Interleaved"
+abstract: "A model that organizes interface data as a tree strictly alternating time and space nodes, and its HTML implementation."
+authors:
+  - family-names: Destrumel
+    given-names: Philippe
+repository-code: "https://github.com/wvanim/TiSpI"
+url: "https://github.com/wvanim/TiSpI"
+license: CC-BY-NC-ND-4.0
+keywords:
+  - user interface
+  - animation
+  - data model
+  - time/space tree
+preferred-citation:
+  type: article
+  title: "Tispi : faire du temps le substrat structurel de l'interface"
+  authors:
+    - family-names: Destrumel
+      given-names: Philippe
+  year: 2025
+  status: preprint
+  url: "https://github.com/wvanim/TiSpI/blob/main/Document/position_paper.md"
