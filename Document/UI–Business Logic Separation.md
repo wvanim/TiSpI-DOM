@@ -1,4 +1,3 @@
-
 # Law 2 — The Scope of Tispi
 
 Tispi takes charge of the **user interface** only: its Faces, its states, its time. Business logic — data, requests, stores, rules — stays with its own tools. Tispi does not separate the two and has nothing in its code to recognize business logic: it defines a scope, not a boundary.
@@ -25,17 +24,24 @@ A script block calls what it wants, and Tispi takes the value that comes back, w
 { $items = loadItems() }
 ```
 
-### Business → interface
+### What comes back
 
-A **mark** is a named stop in a Piece's time; a script goes to it by name:
+The business layer returns content, never a display rule. The interface reads it and chooses. The choice can be a key whose value is a script:
+
+```
+let $items = { loadItems() };
+&face 0:{ $items.length ? 'list' : 'empty' };
+```
+
+or a script that goes to a **mark**, a named stop in a Piece's time:
 
 ```
 &mark 0:CLOSED; 1:OPENED;
 …
-$card->$gotoStop("OPENED")
+{ $card->$gotoStop($opened ? 'OPENED' : 'CLOSED') }
 ```
 
-Marks are the common vocabulary: declared on the Tispi side, used by scripts. A **variable** written from a script (`$n = 5`) is read by the tracks that use it. A written value is state: it is saved with the document (see the default values and `$$openDefaultValue`).
+In both cases the rule lives on the Tispi side. Marks and variables are the common vocabulary: declared on the Tispi side, read and written by scripts. A **variable** written from a script (`$n = 5`) is read by the tracks that use it. A written value is state: it is saved with the document (see the default values and `$$openDefaultValue`).
 
 ---
 
@@ -47,13 +53,12 @@ The relationship is close to the one between a database table and backend code:
 Backend table           Tispi
 ──────────────────      ──────────────────
 columns                 variables
-incoming triggers       marks (goto by name)
+rows returned           values read by scripts
 UPDATE / INSERT         variable writes from scripts
 outgoing calls          script blocks calling the business layer
-SQL rendering           UI rendering
 ```
 
-Tables do not compute — they store and notify. Likewise, Tispi structures, renders and keeps its time; what the values mean is the business layer's affair.
+Tables do not compute — they store and return. Likewise, Tispi structures, renders and keeps its time; what the values mean is the business layer's affair.
 
 ---
 
