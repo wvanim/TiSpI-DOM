@@ -42,15 +42,17 @@ Each term belongs to a layer:
 | **WAAPI** | DOM | Web Animations API: the browser interface that runs animations (`element.animate`). A track that animates a CSS property is a WAAPI animation. |
 | **Key** | Model | A point on a track: a frame, a value, and the transition that leads to it from the previous key. |
 | **Plate** | Model | The Pieces of one group, sharing one time: they advance, stop and restart together. Plates are autonomous: a stop does not propagate to another plate. The plate is not a component of the engine: it is an abstract notion used in the documentation to name this shared time. |
-| **Duration** | Model | The length of a track or of a plate, in frames. A plate's duration can be declared on its time track, `&synchro !<41:>`; otherwise it covers its content. |
+| **Duration** | Model | The length of a track or of a plate, in frames, counted from frame 0. Without a declaration, a plate lasts until the last frame of its longest track, included: a last key at frame 240 gives 241 frames. A duration can be declared on the time track, `&synchro !<41:>`: 41 frames, from 0 to 40. The plate takes the longer of the declared duration and its content. |
+| **Moment** | Model | A position in a Piece's time, one per frame, reachable directly by a goto to the moment or to its mark. Selecting a moment imposes no order; an ordered course only occurs when an interval is played. |
 | **Cursor, instant** | Model | The current position of a plate in its time: the frame it is on. Reading the tree at an instant means taking, on each active plate, the value of each track at the cursor. |
 | **Stop** | Model | A frame where time halts: the plate stays on it until a command plays it again. DOM: a key of the time track, `&synchro 0:stop;` starts halted on frame 0. |
 | **Commands: play, stop, goto** | Model | What acts on time: start a plate, halt it, move its cursor to a frame or a mark. Synchronising is different: it only keeps Pieces in step. DOM: `$scene->$play()`, `$card->$gotoStop("OPENED")`. |
 | **Master / slave** | Model | A plate may follow the time of another plate, its master. The slave keeps its own duration. |
 | **Mark** | Model | A named stop in a Piece's time. A script goes to it by name, which decouples the caller from frame numbers. |
-| **Transition** | DOM | How a track reaches a key. Written before that key. It takes one of two forms: an **effect** or an **interpolation**. |
+| **Transition** | DOM | How a track goes from one key to the next. It takes one of two forms: an **effect**, written before the key it leads to, or an **interpolation**, written after the value of the key it starts from. |
 | **Effect** | DOM | A transition with its own duration: `<60:easeOut>`, 60 frames. It may carry a named process: `<60:easeOut,fade>`. Any key of any track can carry one. |
-| **Hide effect** | DOM | The effect that plays when a Face becomes inactive. Written after the keys of a track of the Face, `!<45:easeInOut>`; the keys that follow are the exit section. |
+| **Hide effect** | DOM | The effect that plays when a Face becomes inactive. Written after the keys of a track of the Face, `!<45:easeInOut>`; the keys that follow are the exit section. It plays from whichever key is current at that moment. |
+| **Factored transition** | DOM | A transition written once, with `!`, for a whole scope: the element, a track, or the exit of a Face. It applies to every key of that scope that does not define a transition of the same type. `&face !<60:fade> 0:day; 120:night;`. More generally, `!<…>` opens the head of an element or of a track. |
 | **Interpolation** | DOM | A transition without a duration: it spans the interval between two keys. `<easeInOut>`. |
 | **Easing** | DOM | The curve of a transition: `linear`, `ease`, `easeIn`, `easeOut`, `easeInOut`, `stepStart`, `fixed` (the value holds until the next key). |
 
