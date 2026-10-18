@@ -2,7 +2,7 @@
 
 # Exploring the Tispi structure in 3D
 
-[Annotated code](https://www.wvanim.fr/projets_perso/tispi/demo_scripts/demo_structure_3D_2pc_tsi_module_code.html) · [Interactive demo](https://www.wvanim.fr/projets_perso/tispi/demo_scripts/demo_structure_3D_2pc_tsi_module.html) · 
+[Annotated code](https://www.wvanim.fr/projets_perso/tispi/demo_scripts/demo_structure_3D_2pc_tsi_module_code.html) · [Interactive demo](https://www.wvanim.fr/projets_perso/tispi/demo_scripts/demo_structure_3D_2pc_tsi_module.html)
 
 This interactive example makes the Tispi structure visible: a Piece activates its Faces one after another as time advances. A Group is itself a Face and contains other Pieces, forming the next level of the tree.
 
