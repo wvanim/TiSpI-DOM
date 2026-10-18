@@ -111,6 +111,8 @@ The interpolation is part of the key’s body, written before its closing semico
 
 - An effect in the track header applies to every key in the track that has no effect of its own. A key can still carry its own effect, which then takes precedence over the header effect. This simplifies the notation by factoring out the shared effect.
 
+- `!` marks a factored transition: written once for a scope — element, track, or exit — it applies to every key in that scope that does not define a transition of that type inline. For an exit transition, it applies from whichever key is current when the Face becomes inactive.
+
 - The colon matters even more here. In the track header, `!<60,fade>` is not rejected: without a duration, it is read as an interpolation, and the 60-frame fade is lost.
 
 ---
