@@ -46,7 +46,8 @@ Tracks that animate a CSS property provide a declarative representation of a WAA
 Each key of a track can also carry a transition effect, specified as a named process. For example, `fade` can be used for Faces and decoration:
 - <60:easeOut,fade> : avec durée (60:), effet de transition avant la key,
 - <easeOut,fade> : sans durée, interpolation vers la key suivante.
-# **Structural Foundations**
+
+## **Structural Foundations**
 
 TiSpI is a **closed structural standard** based on a strict **Time / Space alternation tree**, where **all components and behaviors** are expressed through **deterministic, declarative, and verifiable relationships**, with **no heuristics and no implicit semantics**.
 
@@ -80,7 +81,7 @@ Piece                        // root
 
 ---
 
-### Semantic Reduction
+## Semantic Reduction
 
 Any branch written as a module conforms to the Time/Space Interleaved structure and reduces to a single node, its instance:
 
@@ -91,6 +92,39 @@ Any branch written as a module conforms to the Time/Space Interleaved structure 
 - reversible: expanding the instance gives back the branch, and reducing it again gives back the instance
 
 Reduction is **not an optimization**: it is a **logical consequence** of the closed structure.
+
+### La modularité naturelle, 
+
+**Historique**
+
+#### From the comment flag to editing controls
+
+The **comment flag** excludes a Piece from the exported application while keeping it in the editor.
+
+Its actions can then operate on the editor itself. The Piece becomes a **macro-Piece**: an editing control.
+
+These controls can belong to the group they edit. For example, an animated button can contain three editing controls, each opening the subgroup associated with one of its three states.
+
+Because the controls belong to the same branch as the component, moving, copying or exporting that branch carries them along. The whole component, including its editing controls, can therefore be distributed through an online library.
+
+Combined with the existing group export mechanism, the comment flag made it possible to distribute reusable templates together with their own editing tools.
+
+I had been exporting groups from the beginning and quickly recognized the tree’s modularity. Macro-Pieces followed naturally in 2007.
+
+#### Module encapsulation
+
+A recurring subtree can be **encapsulated as a module**. The module exposes parameters for configuration and slots for attaching child branches, while hiding its internal mechanics.
+
+In the composition tree, it can be used wherever an ordinary Piece is expected. Its editing controls provide access to its parameters and, when needed, to its internal subgroups.
+
+#### The common material: the Time/Space branch
+
+A button has states and actions; a toolbar groups buttons. Both can therefore be built from the same Pieces and Faces.
+
+When their actions target the editor, these branches become editing tools. Since they remain ordinary Time/Space branches, those tools can themselves be edited using the same mechanisms.
+
+**The component, its controls and the editor’s interface share the same material: a Time/Space branch.** Modularity allows these branches to be encapsulated, exported and recomposed together.
+    - 
 
 # Property Decomposition
 
