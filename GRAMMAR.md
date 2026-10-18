@@ -25,7 +25,7 @@ The rules use the EBNF notation of the W3C, as in the XML specification.
 
 Spaces, tabs and line breaks may separate any two tokens; they are not written in the rules. A line comment starts with `//` and runs to the end of the line.
 
-A rule may be used before its definition: `dataTsi` and `headItem` (sections 3 and 4), `value` (7), `track` (5), `effect`, `interpolation`, `hideEffect` (6), `javascript` (8).
+A rule may be used before its definition: `dataTsi`, `headItem` and `factoredTransitions` (sections 3 and 4), `value` (7), `track` (5), `effect`, `interpolation`, `hideEffect` (6), `javascript` (8).
 
 ---
 
@@ -99,7 +99,7 @@ The engine builds the Tispi elements found below the root, and nothing outside i
 
 ```ebnf
 dataTsi        ::= codedZone? head trackItem* '&'?
-head           ::= option* headItem* elementTransitions?
+head           ::= option* headItem* factoredTransitions?
 trackItem      ::= track | macroInsertion | ';'
 macroInsertion ::= '...' variable           /* the text of a macro, inserted here — see section 4 */
 ```
@@ -167,13 +167,13 @@ javascript    ::= /* ordinary JavaScript — see section 8 */
 - Reading or assigning a variable that is declared nowhere is an error.
 - The form `$x := value;` is still read by the engine. It is the former writing of a declaration; do not write it.
 
-### Transitions of the element
+### Factored transitions
 
 ```ebnf
-elementTransitions ::= ( '!' effect )? ( '!' interpolation )?
+factoredTransitions ::= ( '!' effect )? ( '!' interpolation )?   /* written once for a scope: the element or a track; the exit of a Face: exitSection, section 5 */
 ```
 
-The effect comes first, then the interpolation; each is optional. They apply to the tracks of the element that do not give their own. `effect` and `interpolation` are defined in section 6.
+The same writing serves the head of the element and the head of a track (section 5). The effect comes first, then the interpolation; each is optional, but each starts with `!`: without it, a chevron in the head is refused. Written in the head of the element, they apply to the tracks of the element that do not give their own. Their meaning is given in section 6; `effect` and `interpolation` are defined there.
 
 ---
 
@@ -181,7 +181,7 @@ The effect comes first, then the interpolation; each is optional. They apply to 
 
 ```ebnf
 track      ::= timeTrack | trackName trackHead keys exitSection?
-trackHead  ::= trackAttrs* ( '!' effect )? ( '!' interpolation )?
+trackHead  ::= trackAttrs* factoredTransitions?
 trackAttrs ::= '!' '<' attrEntry ( ';' attrEntry )* '>'
 
 keys       ::= ( key | keyInsertion | ';' )*
@@ -201,7 +201,7 @@ exitSection ::= '!' hideEffect keys         /* on the track of a Face only */
 | A key without a frame is at frame 0. | `&size [100,50];` | one key at frame 0 |
 | Frames are numbers, not negative, strictly increasing along the track. Integers in practice; a decimal is read. | `&opacity 10:1; 5:0;` | refused: frame 5 ≤ frame 10 |
 | A frame may be a variable or a script, known when the page is built. | `const $d = 30; &opacity $d:1; {$d+10}:0;` | frames 30 and 40 |
-| A frame alone, `frame:;`, as the last key, is the duration bound of the track. | `&opacity 0:1; 60:;` | key 60 without value, bound |
+| A frame alone, `frame:;`, as the last key, is the duration bound of the track: the track lasts until that frame, included. | `&opacity 0:1; 60:;` | key 60 without value; 61 frames |
 | A frame alone in the middle is a key without value. | `&bgColor 0:gray; 5:; 9:gray;` | key 5 without value |
 | `;` closes a key. The last key may omit it before `&…` or the end, never before `!`. | `&opacity 0:1 &size 10,10;` | two tracks |
 | Before a hide effect the `;` is required. | `45:1 !<45:easeInOut> 0:0` | refused |
@@ -237,12 +237,15 @@ timeItem   ::= integer ':'                  /* the duration, in frames — the '
 | The duration is written `41:` in the configuration. | `&synchro !<41:> 0:stop;` | duration 41 |
 | Without the `:` the duration is refused. | `&synchro !<41> 0:stop;` | refused |
 | Words and calls follow, in any order; the engine writes the duration first. | `&synchro !<repeat, 41:> 0:stop;` | written back `!<41:, repeat>` |
-| Without a declared duration, the duration is that of the content. | `&synchro !<clockMaster(world)> 0:stop;` | duration 1 |
+| Without a declared duration, the duration is that of the content: its last frame, plus one. | `&synchro !<clockMaster(world)> 0:stop;` | last frame 0: duration 1 |
+| A key placed at the declared duration extends the plate: the plate takes the longer of the declared duration and its content. | `&synchro !<240:>;  &opacity 0:1; 240:0;` | duration 241 |
 | A time track may carry only its configuration, without any key. | `&synchro !<clockMaster(world)>;` | no key |
 | `face`: the plate follows the media element written in its Face, `<video>` or `<input type="range">`, declared by `&videoSynchro` or `&sliderSynchro`. Without such an element the page does not finish loading today. | `&synchro !<face> 0:;` on a Piece whose Face holds a slider | written back `!<1:, face>` |
 | No variable in the time track. | `&synchro 0:$x;` | refused |
 
 The time tracks of Pieces that share a plate are one time: the plate takes the longest declared duration. One `&synchro` per plate is enough.
+
+**The duration of a plate.** A duration counts frames from frame 0. Without a declaration, a plate lasts until the last frame of the longest track of its Pieces, included: a last key at frame 240 gives 241 frames, from 0 to 240. A declared duration `!<240:>` gives 240 frames, from 0 to 239. When both exist, the plate takes the longer one.
 
 **Tracks of structure.** They are written like the others; their values are names.
 
@@ -253,7 +256,7 @@ The time tracks of Pieces that share a plate are one time: the plate takes the l
 | `&button` | `OUT`, `OVER`, `PUSHED`, `RELEASED`; a state may carry its action, `RELEASED :: {…}` (section 7) | `&button 0:OUT; 1:OVER; 2:PUSHED; 3:RELEASED :: { … };` |
 | `&onClick`, `&onTime` | a script block | `&onClick 0:{ $card->$gotoStop("OPENED") };` |
 
-**The exit section of a Face.** On a track of a Face, `!` followed by a hide effect ends the entry keys; the keys that follow play when the Face becomes inactive, and their frames start again from 0.
+**The exit section of a Face.** On a track of a Face, `!` followed by a hide effect ends the entry keys; the keys that follow play when the Face becomes inactive, and their frames start again from 0. The hide effect plays from whichever key is current at that moment, from the value then displayed.
 
 | Rule | Example | Verified |
 |---|---|---|
@@ -290,15 +293,25 @@ Inside the chevron, a time ends with `:` and separates by itself; the other item
 | Place | Writing | Verified |
 |---|---|---|
 | An effect, before the key it leads to. | `&opacity 0:1; <30:easeInOut> 36:0;` | key 36, effect of 30 frames |
-| An interpolation, after the value of the key it starts from. | `&opacity 0:1 <easeIn>; 36:0;` | key 0, interpolation ease-in |
+| An interpolation, after the value of the key it starts from. | `&opacity 0:1 <easeIn>; 36:0;` | key 0, interpolation `easeIn` (CSS `ease-in`) |
 | An empty chevron after a value: no interpolation. The same in the head of a track, `!<>`. | `&opacity 0:1 <>; 36:0;` | key 0, none |
 | In the head of a track: the effect, then the interpolation, each with `!`. | `&opacity !<10:ease> !<easeOut> 0:1;` | both on the track |
 | In the head of the element, the same, before the tracks. | `!<12:easeInOut> !<easeIn> &opacity 0:1;` | both on the element |
 | A hide effect, after the keys of a Face track. | `… 45:1; !<45:easeInOut> 0:0` | hide effect of 45 frames |
 
+**Factored transitions.** A transition written with `!` in a head is written once for a scope: the element, a track, or the exit of a Face. It applies to every key of that scope that does not define a transition of the same type inline. The engine looks for each type, effect and interpolation, separately: first on the key, then on the track, then on the element, then in the application. The exit effect plays from whichever key is current when the Face becomes inactive.
+
+| Rule | Example | Verified |
+|---|---|---|
+| A head transition starts with `!`. | `<12:easeInOut> &opacity 0:1;` | refused |
+| The same chevron after the head of a track belongs to the first key. | `&opacity <10:ease> 0:1;` | effect of key 0 |
+| A comma instead of the colon of the duration, in a head, is not refused today: the chevron is read as an interpolation, and the effect is lost. | `&face !<60,fade> 0:day;` | interpolation, no duration |
+
+A limit today: when an interpolation and an effect apply to the same interval, only the interpolation is played. A factored interpolation in the head of a track, such as `!<easeOut>`, therefore hides the effects of the keys of that track.
+
 **What is refused.** An effect written after a value, an interpolation written before a key, two effects in the head of a track, two items without a comma between them (`<10:ease 2>`). The message names the place: "a duration is expected" or "no duration — the duration belongs to the effect".
 
-**Easings.** They are the CSS easings: `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out`, `step-start`; `fixed` holds the value until the next key (`step-end`); `cubicBezier(0.1,0.2,0.3,0.4)` gives `cubic-bezier(…)`. The engine also reads short forms (`_io_` for `easeInOut`, `_c_(…)`…), and writes them back when it saves a page; documentation uses the full names (section 9).
+**Easings.** Each Tispi name gives a CSS easing: `linear`, `ease`, `easeIn` (CSS `ease-in`), `easeOut` (`ease-out`), `easeInOut` (`ease-in-out`), `stepStart` (`step-start`); `fixed` holds the value until the next key (`step-end`); `cubicBezier(0.1,0.2,0.3,0.4)` gives `cubic-bezier(…)`. The engine also reads short forms (`_io_` for `easeInOut`, `_c_(…)`…), and writes them back when it saves a page; documentation uses the full names (section 9).
 
 **A full effect.** `<10:ease,fade,5:2>`: duration 10, easing ease, process fade, delay 5, when 2. `<10:ease,fade>`: the same with delay 0 and when 0.
 
@@ -447,7 +460,7 @@ The words and signs the engine recognizes, by family, each with the section that
 | `$name` | a variable, a function if followed by `(` | 4, 7, 8 |
 | `$$name` | an option of a node, or an attribute of a variable, a track or a key | 4, 5 |
 | `&name` | a track; `&` alone closes the attribute | 3, 5 |
-| `!<…>` | the head of an element, of a track, of a time track; the hide effect after the keys | 4, 5, 6 |
+| `!<…>` | the head: factored transitions of an element or a track, attributes of a track, configuration of a time track; the hide effect after the keys | 4, 5, 6 |
 | `<…>` | a transition before a key or after a value; `<$$…>` the attributes of a key | 5, 6 |
 | `frame:` | the frame of a key | 5 |
 | `{ … }` | a script | 7, 8 |
