@@ -102,6 +102,10 @@ Reduction is **not an optimization**: it is a **logical consequence** of the clo
 The **comment flag** excludes a Piece from the exported application while keeping it in the editor.
 
 Its actions can then operate on the editor itself. The Piece becomes a **macro-Piece**: an editing control.
+<p align="center">
+  <img src="https://www.wvanim.fr/_demo/module_toolbar2.png" alt="Toolbar, step 2" width="49%">
+  <img src="https://www.wvanim.fr/_demo/module_toolbar3.png" alt="Toolbar, step 3" width="49%">
+</p>
 
 These controls can belong to the group they edit. For example, an animated button can contain three editing controls, each opening the subgroup associated with one of its three states.
 
