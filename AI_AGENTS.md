@@ -1,41 +1,41 @@
 # TiSpI for AI agents
 
-## Comptibilité IA
+## AI compatibility
 
-Les propriétés intrinsèques au modèle, pas des promesses sur l'IA.
+Properties intrinsic to the model, not promises about AI.
 
-| Propriété de Tispi | Avantage identifiable |
+| Property of Tispi | Identifiable advantage |
 |---|---|
-| **Alternance régulière Temps/Espace** | Les types de relations sont prévisibles ; la même règle de composition s’applique à toute profondeur. |
-| **Évolution temporelle décrite par pistes** | Les états, valeurs et transitions sont directement accessibles, avec moins de comportement à reconstruire à partir d’instructions dispersées. |
-| **Séparation par environnement affecté** | Une demande peut être localisée et décomposée selon les informations nécessaires à sa résolution. |
-| **Modules avec paramètres et slots** | L’agent peut configurer ou composer une unité à travers son interface, sans examiner son implémentation. |
-| **Réduction en nœud étiqueté et sémantique** | L’agent peut travailler à une échelle globale puis développer seulement les branches nécessaires. |
-| **Rôles explicites dans Tispi/IA** | Le document fournit une qualification fonctionnelle que l’agent aurait autrement à déduire. |
+| **Regular Time/Space alternation** | The kinds of relations are predictable; the same composition rule applies at every depth. |
+| **Evolution over time described by tracks** | States, values and transitions are directly accessible, with less behaviour to reconstruct from scattered instructions. |
+| **Separation by affected environment** | A request can be located and broken down according to the information its resolution needs. |
+| **Modules with parameters and slots** | The agent can configure or compose a unit through its interface, without examining its implementation. |
+| **Reduction to a labelled, semantic node** | The agent can work at a global scale, then expand only the branches it needs. |
+| **Explicit roles in Tispi/IA** | The document provides a functional qualification that the agent would otherwise have to infer. |
 
-## Le circuit
+## The circuit
 
-Un agent IA travaille sur le format Tispi/IA, jamais sur le format Tispi/DOM. Le document lui parvient par un **export** au format Tispi/IA ; l'agent le lit, le vérifie ou le modifie ; le résultat revient dans la page par **réimport**. Les transformations de l'export sont conçues réversibles : rien ne doit se perdre dans l'aller-retour. L'export IA n'est pas encore écrit dans le moteur ; cette réversibilité sera vérifiée par un test aller-retour.
+An AI agent works on the Tispi/IA format, never on the Tispi/DOM format. The document reaches it through an **export** to the Tispi/IA format; the agent reads it, checks it or modifies it; the result comes back into the page through **re-import**. The transformations of the export are reversible: nothing is lost in the round trip. Node reduction, which brings an instance of a module back to its reduced form, and the projection by role and by branch, which folds the document around what the task modifies, are in the engine and their round trip is tested; the surface translation, the tags, `@` and `~>`, remains to be written.
 
 ## Tispi/IA
 
-Des modifications réversibles sont appliquées aux scripts HTML envoyés aux IA.
+Reversible modifications are applied to the HTML scripts sent to AIs.
 
-**Le format IA diffère du format moteur sur quatre points.**
+**The AI format differs from the engine format on four points.**
 
-1. **Les tags nomment des rôles.** `tsi-p`, `tsi-g`, `tsi-f`, `tsi-pg` et `tsi-pf` sont des règles techniques du moteur ; non adapté pour l'IA.  
-Format IA répond à des rôles fonctionnels clairs:
-   - `tsi-p` devient `tsi-morph` quand il possède plusieurs faces, affichées successivement ;
-   - `tsi-p` devient `tsi-pilot` quand il n'a qu'une face, qui échange avec lui : par exemple la synchronisation sur une vidéo ;
-   - `tsi-g` et `tsi-pg` deviennent `tsi-group` ;
-   - `tsi-f` et `tsi-pf` deviennent `tsi-leaf`.
-2. **Les options s'écrivent `@nom`** au lieu de `$$nom`.
-3. **La relation s'écrit `~>`** au lieu de `->`, et la configuration d'une piste, `!<…>`, est rapatriée sous ses noms : `@duration = 41;`.
-4. **Le document est compressé et modularisé.** Une branche stable est réduite à un nœud paramétré, et le document replié ne montre que les nœuds concernés. C'est le gain mesuré en septembre, sur un seul document : moins 43 pour cent de tokens d'entrée et moins 46 pour cent en coût. Le même mécanisme existe pour le CSS, avec ses templates.
+1. **Tags name roles.** `tsi-p`, `tsi-g`, `tsi-f`, `tsi-pg` and `tsi-pf` are technical rules of the engine; they are not suited to AI.  
+The AI format answers to clear functional roles:
+   - `tsi-p` becomes `tsi-morph` when it has several faces, shown one after another;
+   - `tsi-p` becomes `tsi-pilot` when it has a single face, which exchanges with it: for example the synchronization on a video;
+   - `tsi-g` and `tsi-pg` become `tsi-group`;
+   - `tsi-f` and `tsi-pf` become `tsi-leaf`.
+2. **Options are written `@name`** instead of `$$name`.
+3. **The relation is written `~>`** instead of `->`, and the configuration of a track, `!<…>`, is brought back under its names: `@duration = 41;`.
+4. **The document is compressed and modularized.** A stable branch is reduced to a parameterized node, and the folded document shows only the nodes concerned. This is the gain measured in September, on a single document: 43 percent fewer input tokens and 46 percent lower cost. The same mechanism exists for CSS, with its templates.
 
-## Un exemple : le bouton dans les deux formats
+## An example: the button in both formats
 
-Le bouton du [README](README.md), au format moteur :
+The button of the [README](README.md), in the engine format:
 
 ```html
 <tsi-p id="button" data-tsi="&button 0:OUT; 1:OVER; 2:PUSHED;  &synchro 0:stop;  &face 0:out; 1:over; 2:pushed;">
@@ -45,7 +45,7 @@ Le bouton du [README](README.md), au format moteur :
 </tsi-p>
 ```
 
-Le même, au format IA : la Pièce a plusieurs faces successives, c'est un `tsi-morph` ; ses faces sont des `tsi-leaf`. Les pistes ne changent pas.
+The same, in the AI format: the Piece has several successive faces, so it is a `tsi-morph`; its faces are `tsi-leaf`. The tracks do not change.
 
 ```html
 <tsi-morph id="button" data-tsi="&button 0:OUT; 1:OVER; 2:PUSHED;  &synchro 0:stop;  &face 0:out; 1:over; 2:pushed;">
@@ -55,23 +55,23 @@ Le même, au format IA : la Pièce a plusieurs faces successives, c'est un `tsi-
 </tsi-morph>
 ```
 
-## Ce que l'agent fait, et ce qui a été mesuré
+## What the agent does, and what was measured
 
-Trois tâches : **lire** l'état d'une page à une frame donnée, **écrire** un ajout, **déboguer** une page qui contient des fautes. Une étude pilote de septembre 2026, sur des sessions neuves et le seul document de référence, n'a observé aucun échec en lecture ni en débogage, et des fautes d'écriture qui désignaient chacune une règle non écrite : la règle écrite et incarnée dans un exemple, la faute disparaît.
+Three tasks: **read** the state of a page at a given frame, **write** an addition, **debug** a page that contains faults. A pilot study of September 2026, on fresh sessions and the reference document alone, observed no failure in reading or debugging, and writing faults that each pointed to an unwritten rule: once the rule is written and embodied in an example, the fault disappears.
 
-Les effectifs sont petits, trois sessions par cellule, et les mesures portent sur la grammaire de septembre. Les chiffres, leurs intervalles et ce qui reste à mesurer sont dans l'[étude pilote](Document/Etude_pilote_IA_2026-09.md).
+The samples are small, one session per model and per task, with three models, and the measurements concern the September grammar. The figures, their intervals and what remains to be measured are in the [pilot study](Document/Etude_pilote_IA_2026-09.md).
 
-## Les fautes à ne pas commettre
+## Mistakes not to make
 
-Les trois fautes récurrentes relevées pendant les mesures, avant que les règles soient écrites :
+The three recurring faults recorded during the measurements, before the rules were written:
 
-| Faux | Juste |
+| Wrong | Right |
 |---|---|
-| prendre la durée d'un effet, `<8:…>`, pour un numéro de frame | la durée est dans le chevron ; la frame est devant les deux-points de la key |
-| écrire une dimension ou une variable dans `style=` | une dimension s'écrit en piste, `&size`; `style=` n'est ni lu ni interpolé |
-| instancier un module sous un autre tag que celui du module | le tag de l'instance est le tag du module |
+| taking the duration of an effect, `<8:…>`, for a frame number | the duration is inside the chevron; the frame is before the colon of the key |
+| writing a dimension or a variable in `style=` | a dimension is written as a track, `&size`; `style=` is neither read nor interpolated |
+| instantiating a module under a tag other than the module's | the tag of the instance is the tag of the module |
 
-## Références
+## References
 
-- La grammaire du format moteur : [GRAMMAR.md](GRAMMAR.md) ; le vocabulaire : [GLOSSARY.md](GLOSSARY.md).
-- La fiche complète du format IA, ses règles et ses exemples, sera publiée dans ce dépôt.
+- The grammar of the engine format: [GRAMMAR.md](GRAMMAR.md); the vocabulary: [GLOSSARY.md](GLOSSARY.md).
+- The complete sheet of the AI format, its rules and its examples, will be published in this repository.
