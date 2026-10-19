@@ -15,7 +15,7 @@ Les propriétés intrinsèques au modèle, pas des promesses sur l'IA.
 
 ## Le circuit
 
-Un agent IA ne travaille jamais sur le format moteur. Le document lui parvient par un **export** au format Tispi/IA ; l'agent le lit, le vérifie ou le modifie ; le résultat revient dans la page par **réimport**. Les transformations de l'export sont conçues réversibles : rien ne doit se perdre dans l'aller-retour. L'export IA n'est pas encore écrit dans le moteur ; cette réversibilité sera vérifiée par un test aller-retour.
+Un agent IA travaille sur le format Tispi/IA, jamais sur le format Tispi/DOM. Le document lui parvient par un **export** au format Tispi/IA ; l'agent le lit, le vérifie ou le modifie ; le résultat revient dans la page par **réimport**. Les transformations de l'export sont conçues réversibles : rien ne doit se perdre dans l'aller-retour. L'export IA n'est pas encore écrit dans le moteur ; cette réversibilité sera vérifiée par un test aller-retour.
 
 ## Tispi/IA
 
