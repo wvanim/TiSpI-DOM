@@ -1,5 +1,22 @@
 # TiSpI for AI agents
 
+## Comptibilité IA
+
+Les propriétés intrinsèques au modèle, pas des promesses sur l'IA.
+
+**Ce qui est démontré par le modèle, mais pas par une mesure IA**
+
+- Régularité de l'arbre. L'alternance stricte est le fondement du modèle, vérifiée par le moteur. Que cette régularité aide l'IA est plausible, et l'absence de fautes de structure en septembre va dans ce sens, mais aucune mesure ne l'isole : rien ne compare un arbre régulier à un arbre qui ne l'est pas.
+- Séparation orthogonal du Temps et de l'espace : l'organisation des données est 
+- représentation linéaire des informations temporelles, key et transition. le temps est une donnée du document, lisible sur une ligne, et non un effet caché dans du code. La lecture exacte de la frame 300 par les trois modèles en est une illustration, puisqu'elle demandait de dérouler les pistes. C'est une observation, pas une mesure comparative.
+
+**Ce qui est mesuré, au moins en partie**
+
+- Modularité, réduction en nœud sémantique. la mesure 7 compare document replié et document entier, moins 43 % de tokens d'entrée, et la réduction de nœud est testée dans les deux sens. Un bémol de précision : le repli de la mesure 7 est celui du filtre de rôle, pas une réduction de modules ; les deux mécanismes sont distincts, et l'étude le dit.
+- Séparation des pistes par environnement ciblé. 
+  Voir le doc_structurel.md : structurel, l'arbre actif ; spatial, le plateau ; décoratif, interne à la Face. 
+  Elle est au cœur du filtre de rôle pour l'envoie à l'IA, TsiIaRoleFilter, et ses vues ont servi aux mesures. 
+
 ## Le circuit
 
 Un agent IA ne travaille jamais sur le format moteur. Le document lui parvient par un **export** au format Tispi/IA ; l'agent le lit, le vérifie ou le modifie ; le résultat revient dans la page par **réimport**. Les transformations de l'export sont conçues réversibles : rien ne doit se perdre dans l'aller-retour. L'export IA n'est pas encore écrit dans le moteur ; cette réversibilité sera vérifiée par un test aller-retour.
