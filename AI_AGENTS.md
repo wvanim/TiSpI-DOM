@@ -4,18 +4,14 @@
 
 Les propriétés intrinsèques au modèle, pas des promesses sur l'IA.
 
-**Ce qui est démontré par le modèle, mais pas par une mesure IA**
-
-- Régularité de l'arbre. L'alternance stricte est le fondement du modèle, vérifiée par le moteur. Que cette régularité aide l'IA est plausible, et l'absence de fautes de structure en septembre va dans ce sens, mais aucune mesure ne l'isole : rien ne compare un arbre régulier à un arbre qui ne l'est pas.
-- Séparation orthogonal du Temps et de l'espace : l'organisation des données est 
-- représentation linéaire des informations temporelles, key et transition. le temps est une donnée du document, lisible sur une ligne, et non un effet caché dans du code. La lecture exacte de la frame 300 par les trois modèles en est une illustration, puisqu'elle demandait de dérouler les pistes. C'est une observation, pas une mesure comparative.
-
-**Ce qui est mesuré, au moins en partie**
-
-- Modularité, réduction en nœud sémantique. la mesure 7 compare document replié et document entier, moins 43 % de tokens d'entrée, et la réduction de nœud est testée dans les deux sens. Un bémol de précision : le repli de la mesure 7 est celui du filtre de rôle, pas une réduction de modules ; les deux mécanismes sont distincts, et l'étude le dit.
-- Séparation des pistes par environnement ciblé. 
-  Voir le doc_structurel.md : structurel, l'arbre actif ; spatial, le plateau ; décoratif, interne à la Face. 
-  Elle est au cœur du filtre de rôle pour l'envoie à l'IA, TsiIaRoleFilter, et ses vues ont servi aux mesures. 
+| Propriété de Tispi | Avantage identifiable |
+|---|---|
+| **Alternance régulière Temps/Espace** | Les types de relations sont prévisibles ; la même règle de composition s’applique à toute profondeur. |
+| **Évolution temporelle décrite par pistes** | Les états, valeurs et transitions sont directement accessibles, avec moins de comportement à reconstruire à partir d’instructions dispersées. |
+| **Séparation par environnement affecté** | Une demande peut être localisée et décomposée selon les informations nécessaires à sa résolution. |
+| **Modules avec paramètres et slots** | L’agent peut configurer ou composer une unité à travers son interface, sans examiner son implémentation. |
+| **Réduction en nœud étiqueté et sémantique** | L’agent peut travailler à une échelle globale puis développer seulement les branches nécessaires. |
+| **Rôles explicites dans Tispi/IA** | Le document fournit une qualification fonctionnelle que l’agent aurait autrement à déduire. |
 
 ## Le circuit
 
