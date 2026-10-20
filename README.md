@@ -8,14 +8,11 @@
     <sub>See IA compatibility -> Agentic training (clic image)</sub>
   </a>
 </p>
+
 # What is TiSpI - Time/Space Interleaved?
 
 TiSpI is an **interactive UI and animation standard** that organizes interface data as a **Time/Space Interleaved tree**.  
-
-- a **structural data model** — [documentation](https://github.com/wvanim/TiSpI-DOM/blob/main/Document/doc_structurel.md)
-- the **Time/Space Interleaved structural standard** itself
-- A tree shaped like a **syncChart**, where time selects the state. [Comparison with SyncCharts](Document/tispi_and_synccharts.md)
-- a structure **particularly well suited to visual editors**, such as e-anim / WvAnim — [video](https://www.wvanim.fr/p/present_wvanim_philippe_destrumel.mp4)
+A tree shaped like a **syncChart**, where time selects the state. [Comparison with SyncCharts](Document/tispi_and_synccharts.md)
 
 Originally created in the **e-anim** editor (later **WvAnim**) in 1999, it has been used continuously for more than 25 years. Its core structure has remained unchanged.
 
@@ -32,21 +29,24 @@ TiSpI provides:
   </a>
 </p>
 
+- a structure **particularly well suited to visual editors**, such as e-anim / WvAnim — [video](https://www.wvanim.fr/p/present_wvanim_philippe_destrumel.mp4)
+- a **structural data model** — [documentation](Document/doc_structurel.md)
+- the **Time/Space Interleaved structural standard** itself
+
 ---
 
 # What TiSpI Provides
 
 TiSpI makes the *state node* a first-class element of the document.
 
-As its name suggests, the Time/Space Interleaved model alternates temporal and spatial nodes. In HTML, `<tsi-p>` represents the temporal node: it defines a component's alternative Faces and selects its current Face. Its children are Face elements: `<tsi-g>` for a Group and `<tsi-f>` for rendered DOM content or a component.
+As its name suggests, the Time/Space Interleaved model alternates temporal and spatial nodes. In HTML, `<tsi-p>` represents the temporal node: it defines a component's alternative Faces and selects its current Face. Its children are Face elements: `<tsi-g>` for a Group and `<tsi-f>` for render![alt text](image.png)ed DOM content or a component.
 
 Tracks that animate a CSS property provide a declarative representation of a WAAPI animation directly in HTML: their keys correspond to keyframes, and the browser executes the animation.
 
 Each key of a track can also carry a transition effect, specified as a named process. For example, `fade` can be used for Faces and decoration:
 - <60:easeOut,fade> : avec durée (60:), effet de transition avant la key,
 - <easeOut,fade> : sans durée, interpolation vers la key suivante.
-
-## **Structural Foundations**
+# **Structural Foundations**
 
 TiSpI is a **closed structural standard** based on a strict **Time / Space alternation tree**, where **all components and behaviors** are expressed through **deterministic, declarative, and verifiable relationships**, with **no heuristics and no implicit semantics**.
 
@@ -60,9 +60,7 @@ TiSpI is a **closed structural standard** based on a strict **Time / Space alter
 
 ### Time
 
-Nous nommerons plateau les Piece within the same Group.
-1. All tracks of all Pieces d'un plateau are synchronized.
-2. Chaque plateau porte sa propre synchronisation, et il est indépendant des autres plateaux.
+1. All tracks of all Pieces within the same Group are synchronized.
 2. The entire evolution of each channel is described in its track: a sequence of values and transformations.
 
 ### Example
@@ -78,11 +76,11 @@ Piece                        // root
     Face (oval)              // FaceRender
 ```
 
-<img width="1101" height="742" alt="tispi_tree_simple" src="https://www.wvanim.fr/_demo/tispi_tree_simple.png" />
+<img width="1101" height="742" alt="tispi_tree_simple" src="https://github.com/user-attachments/assets/498a9f7f-0708-4263-9da8-2d2d20b4a6c3" />
 
 ---
 
-## Semantic Reduction
+### Semantic Reduction
 
 Any branch written as a module conforms to the Time/Space Interleaved structure and reduces to a single node, its instance:
 
@@ -93,43 +91,6 @@ Any branch written as a module conforms to the Time/Space Interleaved structure 
 - reversible: expanding the instance gives back the branch, and reducing it again gives back the instance
 
 Reduction is **not an optimization**: it is a **logical consequence** of the closed structure.
-
-### La modularité naturelle, 
-
-**Historique**
-
-#### From the comment flag to editing controls
-
-The **comment flag** excludes a Piece from the exported application while keeping it in the editor.
-
-Its actions can then operate on the editor itself. The Piece becomes a **macro-Piece**: an editing control.
-<p align="center">
-  <img src="https://www.wvanim.fr/_demo/module_toolbar2.png" alt="Toolbar, step 2" width="49%">
-  <img src="https://www.wvanim.fr/_demo/module_toolbar3.png" alt="Toolbar, step 3" width="49%">
-</p>
-
-These controls can belong to the group they edit. For example, an animated button can contain three editing controls, each opening the subgroup associated with one of its three states.
-
-Because the controls belong to the same branch as the component, moving, copying or exporting that branch carries them along. The whole component, including its editing controls, can therefore be distributed through an online library.
-
-Combined with the existing group export mechanism, the comment flag made it possible to distribute reusable templates together with their own editing tools.
-
-I had been exporting groups from the beginning and quickly recognized the tree’s modularity. Macro-Pieces followed naturally in 2007.
-
-#### Module encapsulation
-
-A recurring subtree can be **encapsulated as a module**. The module exposes parameters for configuration and slots for attaching child branches, while hiding its internal mechanics.
-
-In the composition tree, it can be used wherever an ordinary Piece is expected. Its editing controls provide access to its parameters and, when needed, to its internal subgroups.
-
-#### The common material: the Time/Space branch
-
-A button has states and actions; a toolbar groups buttons. Both can therefore be built from the same Pieces and Faces.
-
-When their actions target the editor, these branches become editing tools. Since they remain ordinary Time/Space branches, those tools can themselves be edited using the same mechanisms.
-
-**The component, its controls and the editor’s interface share the same material: a Time/Space branch.** Modularity allows these branches to be encapsulated, exported and recomposed together.
-    - 
 
 # Property Decomposition
 
@@ -167,12 +128,8 @@ Any DOM content: text, image, SVG, video, a component.
 ---
 
 # Example: a button
-<p align="center">
-  <a href="https://www.wvanim.fr/_demo/tispi_button001.png">
-    <img src="https://www.wvanim.fr/_demo/tispi_button001.png" alt="The button in the Time/Space tree" width="600">
-  </a><br>
-  <sub>Click to enlarge (Ctrl + click: new tab)</sub>
-</p>
+
+<img width="830" height="584" alt="im2" src="https://github.com/user-attachments/assets/635ab6b2-f5e1-4f89-ab4b-13e724153764" />
 
 A button is one `<tsi-p>` with three Faces and three tracks:
 
@@ -209,7 +166,7 @@ The engine is in the [engine](engine) folder: `tispi.js`, readable and commented
 At the end of the `body`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/wvanim/TiSpI@v0.1.0/engine/tispi.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/wvanim/TiSpI-DOM@v0.1.1/engine/tispi.min.js"></script>
 <script>
   o_.start(null, 100/6, null, null, document.getElementById("root"));
 </script>
