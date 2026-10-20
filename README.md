@@ -60,7 +60,9 @@ TiSpI is a **closed structural standard** based on a strict **Time / Space alter
 
 ### Time
 
-1. All tracks of all Pieces within the same Group are synchronized.
+Nous nommerons plateau les Piece within the same Group.
+1. All tracks of all Pieces d'un plateau are synchronized.
+2. Chaque plateau porte sa propre synchronisation, et il est indépendant des autres plateaux.
 2. The entire evolution of each channel is described in its track: a sequence of values and transformations.
 
 ### Example
