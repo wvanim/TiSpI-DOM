@@ -8,7 +8,10 @@ Properties intrinsic to the model, not promises about AI.
 |---|---|
 | **Regular Time/Space alternation** | The kinds of relations are predictable; the same composition rule applies at every depth. |
 | **Evolution over time described by tracks** | States, values and transitions are directly accessible, with less behaviour to reconstruct from scattered instructions. |
-| **Separation by affected environment** | A request can be located and broken down according to the information its resolution needs. |
+| **Separation by affected environment** | A request can be located and broken down according to the information its resolution needs:
+- structurel (modification de l'arbre actif),
+- spatial (relation entre les Pièces),
+- décoratif (description interne des Faces) ;
 | **Modules with parameters and slots** | The agent can configure or compose a unit through its interface, without examining its implementation. |
 | **Reduction to a labelled, semantic node** | The agent can work at a global scale, then expand only the branches it needs. |
 | **Synchronisation par plateau** | frontières net car les plateaux sont autonomes. |
