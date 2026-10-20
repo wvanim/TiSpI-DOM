@@ -2,16 +2,16 @@
 
 ## AI compatibility
 
-Properties intrinsic to the model, not promises about AI.
+These properties are intrinsic to TiSpI’s structure, emerging before its encounter with AI.
 
-| Property of Tispi | Identifiable advantage |
+| Property of TiSpI | Identifiable advantage |
 |---|---|
-| **Regular Time/Space alternation** | The kinds of relations are predictable; the same composition rule applies at every depth. |
-| **Evolution over time described by tracks** | States, values and transitions are directly accessible, with less behaviour to reconstruct from scattered instructions. |
-| **Separation by affected environment** | A request can be located and broken down according to the information its resolution needs: structurel (modification de l'arbre actif), spatial (relation entre les Pièces), décoratif (description interne des Faces) ;
-| **Modules with parameters and slots** | The agent can configure or compose a unit through its interface, without examining its implementation. |
-| **Reduction to a labelled, semantic node** | The agent can work at a global scale, then expand only the branches it needs. |
-| **Synchronisation par plateau** | frontières net car les plateaux sont autonomes. |
+| **Regular Time/Space alternation** | Relations follow a predictable structure; the same composition rule applies at every depth. |
+| **Evolution described by tracks** | States, values and transitions are explicitly represented, reducing the need to reconstruct behaviour from scattered instructions. |
+| **Separation by role** | Requests can be broken down into structural changes (active tree), spatial relations (between Pieces), and decorative descriptions (inside Faces). |
+| **Reduction to a named module with parameters and slots** | A complex branch is represented by a single semantic node, configurable through parameters and composable through slots. |
+| **Plateau-based synchronization** | Each plateau shares a common position across its Pieces and forms a clearly bounded unit with independent control. |
+| **Correspondence between DOM and AI scripts** | Shared structure and syntax allow direct correspondence between elements, with naming differences adapted to AI comprehension. |
 
 ## The circuit
 
