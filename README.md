@@ -39,6 +39,19 @@ TiSpI provides:
 TiSpI makes the *state node* a first-class element of the document.
 
 As its name suggests, the Time/Space Interleaved model alternates temporal and spatial nodes. In HTML, `<tsi-p>` represents the temporal node: it defines a component's alternative Faces and selects its current Face. Its children are Face elements: `<tsi-g>` for a Group and `<tsi-f>` for rendered DOM content or a component.
+<p align="center">
+  <a href="https://www.wvanim.fr/_demo/demo_animated_html/tispi_2_pieces_faces/demo_structure_3D_2pc_tsi_module.html">
+    <img
+      src="https://www.wvanim.fr/_demo/plate_motor.jpg"
+      alt="A plate of two synchronized Pieces"
+      width="60%"
+    ><br>
+    <sub>Piece/Face-Group/Face-Leaf movement (click image)</sub>
+  </a>
+  <a href="https://www.wvanim.fr/_demo/demo_animated_html/tispi_2_pieces_faces/demo_structure_3D_2pc_tsi_module.html">
+  
+</p>
+
 
 Tracks that animate a CSS property provide a declarative representation of a WAAPI animation directly in HTML: their keys correspond to keyframes, and the browser executes the animation.
 
