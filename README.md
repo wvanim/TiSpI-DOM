@@ -12,7 +12,6 @@
 # What is TiSpI - Time/Space Interleaved?
 
 TiSpI is an **interactive UI and animation standard** that organizes interface data as a **Time/Space Interleaved tree**.  
-A tree shaped like a **syncChart**, where time selects the state. [Comparison with SyncCharts](Document/tispi_and_synccharts.md)
 
 Originally created in the **e-anim** editor (later **WvAnim**) in 1999, it has been used continuously for more than 25 years. Its core structure has remained unchanged.
 
