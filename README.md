@@ -49,7 +49,8 @@ As its name suggests, the Time/Space Interleaved model alternates temporal and s
     <sub>Piece/Face-Group/Face-Leaf movement (click image)</sub>
   </a>
   <a href="https://www.wvanim.fr/_demo/demo_animated_html/tispi_2_pieces_faces/demo_structure_3D_2pc_tsi_module.html">
-  
+    Script commented
+  </a>
 </p>
 
 
