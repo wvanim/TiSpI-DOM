@@ -28,9 +28,9 @@ TiSpI provides:
   </a>
 </p>
 
-- a structure **particularly well suited to visual editors**, such as e-anim / WvAnim — [video](https://www.wvanim.fr/p/present_wvanim_philippe_destrumel.mp4)
 - a **structural data model** — [documentation](Document/doc_structurel.md)
 - the **Time/Space Interleaved structural standard** itself
+- a structure **particularly well suited to visual editors**, such as e-anim / WvAnim — [video](https://www.wvanim.fr/p/present_wvanim_philippe_destrumel.mp4)
 
 ---
 
