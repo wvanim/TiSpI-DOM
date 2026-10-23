@@ -35,7 +35,7 @@ TiSpI provides:
     <img
       src="https://www.wvanim.fr/_demo/arbre_chat001c.png"
       alt="Activation of branches"
-      width="80%"
+      width="60%"
     ><br>
     <sub>See section 3: how the Piece activates branches</sub>
   </a>
