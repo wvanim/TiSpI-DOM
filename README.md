@@ -30,15 +30,17 @@ TiSpI provides:
 
 - a **structural data model** — [documentation](Document/doc_structurel.md)
 - the **Time/Space Interleaved structural standard** itself<p align="center">
-  <a href="https://www.wvanim.fr/projets_perso/tispi/demo_scripts/schema_piece_face_github.html">
-    <img
-      src="https://www.wvanim.fr/_demo/arbre_chat001c.png"
-      alt="Activation of branches"
-      width="60%"
-    ><br>
-    <sub>See section 3: how the Piece activates branches</sub>
+<p align="center">
+  <a href="https://www.wvanim.fr/_demo/_script/git001_move.html" >
+  <img
+    src="https://www.wvanim.fr/_demo/_script/tispi_script001a.png"
+    alt="Script Tispi 001"
+    width="780"
+  ><br>
+    <sub>See animation (clic image)</sub>
   </a>
 </p>
+  
 - a structure **particularly well suited to visual editors**, such as e-anim / WvAnim — [video](https://www.wvanim.fr/p/present_wvanim_philippe_destrumel.mp4)
 
 ---
