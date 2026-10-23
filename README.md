@@ -29,7 +29,8 @@ TiSpI provides:
 </p>
 
 - a **structural data model** — [documentation](Document/doc_structurel.md)
-- the **Time/Space Interleaved structural standard** itself <p align="center">
+- the **Time/Space Interleaved structural standard** itself
+<p align="center">
   <a href="https://www.wvanim.fr/projets_perso/tispi/demo_scripts/schema_piece_face_github.html">
     <img
       src="https://www.wvanim.fr/_demo/arbre_chat001c.png"
