@@ -125,7 +125,7 @@ Important : all are built from the same material—a branch alternating between 
     <img
       src="https://www.wvanim.fr/_demo/wvanim_video.png"
       alt="Activation of branches"
-      width="4ç%"
+      width="49%"
     >
   </a>
   <a href="https://www.wvanim.fr/_demo/demo_animated_html/video_synchro/testVideoSynchro2_code.html">
@@ -133,7 +133,7 @@ Important : all are built from the same material—a branch alternating between 
       src="https://www.wvanim.fr/_demo/wvanim_video_bar_command.png"
       alt="Activation of branches"
       width="49%"
-    ><br>
+    >
   </a><br>
     <sub>Left: the user toolbar. Right: the sub-group that models it.</sub>
 </p>
