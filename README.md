@@ -39,6 +39,7 @@ TiSpI provides:
     <sub>See section 3: how the Piece activates branches</sub>
   </a>
 </p>
+
 - a structure **particularly well suited to visual editors**, such as e-anim / WvAnim — [video](https://www.wvanim.fr/p/present_wvanim_philippe_destrumel.mp4)
 - a **structural data model** — [documentation](Document/doc_structurel.md)
 
