@@ -119,7 +119,6 @@ Reduction is **not an optimization**: it is a **logical consequence** of the clo
 In 2007, a capability emerged naturally from the TiSpI model, removing the boundary between document objects and editing controls.
 They share the composition space or appear in separate panels.
 Important : all are built from the same material—a branch alternating between Time and Space.
-????
 <p align="center">
   <a href="https://www.wvanim.fr/projets_perso/tispi/demo_scripts/schema_piece_face_github.html">
     <img
