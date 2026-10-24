@@ -151,7 +151,7 @@ Any DOM content: text, image, SVG, video, a component.
 
 # Example: a button
 
-<img width="830" height="584" alt="im2" src="https://github.com/user-attachments/assets/635ab6b2-f5e1-4f89-ab4b-13e724153764" />
+<p align="center"><img width="415" height="292" alt="im2" src="https://www.wvanim.fr/_demo/tispi_button001.png" /></p>
 
 A button is one `<tsi-p>` with three Faces and three tracks:
 
