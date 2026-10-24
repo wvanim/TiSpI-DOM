@@ -125,18 +125,17 @@ Important : all are built from the same material—a branch alternating between 
     <img
       src="https://www.wvanim.fr/_demo/wvanim_video.png"
       alt="Activation of branches"
-      width="40%"
-    ><br>
-    <sub>See section 3: how the Piece activates branches</sub>
+      width="4ç%"
+    >
   </a>
   <a href="https://www.wvanim.fr/_demo/demo_animated_html/video_synchro/testVideoSynchro2_code.html">
     <img
       src="https://www.wvanim.fr/_demo/wvanim_video_bar_command.png"
       alt="Activation of branches"
-      width="40%"
+      width="49%"
     ><br>
-    <sub>See section 3: how the Piece activates branches</sub>
-  </a>
+  </a><br>
+    <sub>Left: the user toolbar. Right: the sub-group that models it.</sub>
 </p>
 
 
