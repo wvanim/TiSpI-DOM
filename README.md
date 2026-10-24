@@ -123,9 +123,9 @@ Important : all are built from the same material—a branch alternating between 
 <p align="center">
   <a href="https://www.wvanim.fr/projets_perso/tispi/demo_scripts/schema_piece_face_github.html">
     <img
-      src="https://www.wvanim.fr/_demo/wvanim_video_bar_command.png"
+      src="https://www.wvanim.fr/_demo/wvanim_video.png"
       alt="Activation of branches"
-      width="49%"
+      width="40%"
     ><br>
     <sub>See section 3: how the Piece activates branches</sub>
   </a>
@@ -133,7 +133,7 @@ Important : all are built from the same material—a branch alternating between 
     <img
       src="https://www.wvanim.fr/_demo/wvanim_video_bar_command.png"
       alt="Activation of branches"
-      width="49%"
+      width="40%"
     ><br>
     <sub>See section 3: how the Piece activates branches</sub>
   </a>
