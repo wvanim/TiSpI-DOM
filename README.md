@@ -114,6 +114,32 @@ Any branch written as a module conforms to the Time/Space Interleaved structure 
 
 Reduction is **not an optimization**: it is a **logical consequence** of the closed structure.
 
+### user contrôls
+
+In 2007, a capability emerged naturally from the TiSpI model, removing the boundary between document objects and editing controls.
+They share the composition space or appear in separate panels.
+Important : all are built from the same material—a branch alternating between Time and Space.
+????
+<p align="center">
+  <a href="https://www.wvanim.fr/projets_perso/tispi/demo_scripts/schema_piece_face_github.html">
+    <img
+      src="https://www.wvanim.fr/_demo/wvanim_video_bar_command.png"
+      alt="Activation of branches"
+      width="49%"
+    ><br>
+    <sub>See section 3: how the Piece activates branches</sub>
+  </a>
+  <a href="https://www.wvanim.fr/_demo/demo_animated_html/video_synchro/testVideoSynchro2_code.html">
+    <img
+      src="https://www.wvanim.fr/_demo/wvanim_video_bar_command.png"
+      alt="Activation of branches"
+      width="49%"
+    ><br>
+    <sub>See section 3: how the Piece activates branches</sub>
+  </a>
+</p>
+
+
 # Property Decomposition
 
 In TiSpI, every property is classified by the environment it modifies:
