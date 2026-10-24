@@ -120,7 +120,7 @@ In 2007, a capability emerged naturally from the TiSpI model, removing the bound
 They share the composition space or appear in separate panels.
 Important : all are built from the same material—a branch alternating between Time and Space.
 <p align="center">
-  <a href="https://www.wvanim.fr/projets_perso/tispi/demo_scripts/schema_piece_face_github.html">
+  <a href="https://www.wvanim.fr/video.html">
     <img
       src="https://www.wvanim.fr/_demo/wvanim_video.png"
       alt="Activation of branches"
