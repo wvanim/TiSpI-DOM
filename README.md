@@ -135,7 +135,7 @@ Important : all are built from the same material—a branch alternating between 
       width="49%"
     >
   </a><br>
-    <sub>&emsp;&emsp;&emsp;Left: the user toolbar.&emsp;&emsp;&emsp; 
+    <sub>Left: the user toolbar.
       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
