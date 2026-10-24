@@ -28,7 +28,6 @@ TiSpI provides:
   </a>
 </p>
 
-- a **structural data model** — [documentation](Document/doc_structurel.md)
 - the **Time/Space Interleaved structural standard** itself
 <p align="center">
   <a href="https://www.wvanim.fr/projets_perso/tispi/demo_scripts/schema_piece_face_github.html">
@@ -40,8 +39,8 @@ TiSpI provides:
     <sub>See section 3: how the Piece activates branches</sub>
   </a>
 </p>
-  
 - a structure **particularly well suited to visual editors**, such as e-anim / WvAnim — [video](https://www.wvanim.fr/p/present_wvanim_philippe_destrumel.mp4)
+- a **structural data model** — [documentation](Document/doc_structurel.md)
 
 ---
 
