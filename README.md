@@ -135,7 +135,7 @@ Important : all are built from the same material—a branch alternating between 
       width="49%"
     >
   </a><br>
-    <sub>Left: the user toolbar. Right: the sub-group that models it.</sub>
+    <sub>Left: the user toolbar.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Right: the sub-group that models it.</sub>
 </p>
 
 
