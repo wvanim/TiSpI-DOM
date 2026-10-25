@@ -21,24 +21,24 @@ Thus, we decompose every interface component along two fundamental axes: **the a
   </a>
 </p>
 
-## 1. The Plateau
+## 1. The Plate
 
 Groups are Faces. The TiSpI tree can therefore take the following form:
 
 Piece / Group / Piece / Group / … / Piece / Face
 
-The Pieces that are direct children of a Group form a **plateau**. A plateau is a theoretical concept used in the documentation.
+The Pieces that are direct children of a Group form a **plate**. A plate is a theoretical concept used in the documentation.
 
-The Pieces within a plateau are synchronized, as illustrated by the animation linked below.
+The Pieces within a plate are synchronized, as illustrated by the animation linked below.
 
 <p align="center">
   <a href="https://www.wvanim.fr/projets_perso/tipsi/doc/tispi_node_animated2/structure1.html">
     <img
       src="https://www.wvanim.fr/_demo/plate_motor.jpg"
-      alt="Plateau with two synchronized Pieces"
+      alt="Plate with two synchronized Pieces"
       width="75%"
     ><br>
-    A plateau with two synchronized Pieces (click here)
+    A plate with two synchronized Pieces (click here)
   </a>
 </p>
 
@@ -59,11 +59,29 @@ Pieces and Faces expose orthogonal arrays: time | Face.
 
 ## 3. The Roles of the Timeline
 
+The timeline organises states and values around one position, shared by the Pieces of a plate. Its role depends on what controls this position.
+
+The conventional term "timeline" can be misleading: the same structure also serves as a state bar, or follows a master unrelated to time. The temporal dimension nevertheless remains: each change occurs at a given moment.
+
 ### State Bar — Discrete-Value Listener
+
+The position selects a state and changes on command, without automatic progression.
+
+Each selected position determines the active Faces and the track values within the plate. The bar thus describes the states of a component and the transitions between them. An interval may still be played between two stops: the arrival effect of a Face, for example.
+**Example: a button**
+<p align="center"><img width="623" height="438" alt="im2" src="https://www.wvanim.fr/_demo/tispi_button001.png" /></p>
 
 ### Timeline
 
+The position advances automatically. The tracks then describe the sequence of states and the evolution of values.
+
+Animation uses the same structure as the state bar: only the way the position advances changes.
+
 ### Follower of a Master Value — Continuous-Value Listener
+
+The position of the bar is determined by a master. The master can be an external value, a slider or a video, or another plate.
+
+The plate responds as a whole: all its Pieces follow the same position.
 
 ## 4. Principle of Indivisibility
 
