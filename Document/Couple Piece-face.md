@@ -1,8 +1,6 @@
 # Law 1: The Atomic Unit — Piece / Face
 
-TiSpI — Time/Space Interleaved — is an engine that drives a component tree in which time and space strictly alternate:
-
-- Time / Space / Time / Space / …
+TiSpI — Time / Space / Time / Space / … is a data architecture based on a tree that strictly alternates between Time and Space, with defined rules of behavior.
 
 Here, we present its application to user interfaces, its original domain.
 
