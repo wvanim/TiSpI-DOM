@@ -67,7 +67,7 @@ The conventional term "timeline" can be misleading: the same structure also serv
 
 The position selects a state and changes on command, without automatic progression.
 
-Each selected position determines the active Faces and the track values within the plate. The bar thus describes the states of a component and the transitions between them. An interval may still be played between two stops: the arrival effect of a Face, for example.
+Each selected position determines the active Faces and the track values within the plate. The bar thus describes the states of a component and the transitions between them. An interval may still be played between two stops: the arrival effect of a Face, for example.  
 **Example: a button**
 <p align="center"><img width="623" height="438" alt="im2" src="https://www.wvanim.fr/_demo/tispi_button001.png" /></p>
 
