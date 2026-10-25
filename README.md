@@ -134,11 +134,13 @@ Important : all are built from the same material—a branch alternating between 
       width="48%"
     >
   </a><br>
-    <sub>Left: the user toolbar.
+    <sub>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+      the user toolbar.
+      &emsp;
       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-      Right: toolbar factory.</sub>
+      toolbar factory.<br>
+      The toolbar factory is simply a subgroup, so it travels with the branch when copied or exported.
+    </sub>
 </p>
 
 # Property Decomposition
