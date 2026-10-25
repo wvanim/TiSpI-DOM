@@ -82,7 +82,9 @@ Animation uses the same structure as the state bar: only the way the position ad
 The position of the bar is determined by a master. The master can be an external value, a slider or a video, or another plate.
 
 The plate responds as a whole: all its Pieces follow the same position.
-<p align="center"><img width="300" height="300" alt="im2" src="https://www.wvanim.fr/_demo/curseur_synchro_400.png" /></p>
+<p align="center"><img width="300" height="300" alt="im2" src="https://www.wvanim.fr/_demo/curseur_synchro_400.png" /><br>
+  <sub>Schematic illustration: A slider drives the plate./sub>
+</p>
 
 ## 4. Principle of Indivisibility
 
