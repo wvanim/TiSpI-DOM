@@ -1,6 +1,6 @@
 # Law 2 — The Scope of Tispi
 
-Tispi takes charge of the **user interface** only: its Faces, its states, its time. Business logic — data, requests, stores, rules — stays with its own tools. Tispi does not separate the two and has nothing in its code to recognize business logic: it defines a scope, not a boundary.
+Tispi takes charge of the **user interface** only: its Faces, its states, its time. Business logic — data, requests, stores, rules — stays with its own tools. Tispi separates the two by its scope, not by a mechanism: nothing in its code recognizes or forbids business logic. It simply does not handle it.
 
 The reason is simple: each side concentrates on its own expertise. Tools for business logic exist (stores, query libraries, plain `fetch`); Tispi takes the place left empty, the interface and its time.
 
@@ -41,7 +41,19 @@ or a script that goes to a **mark**, a named stop in a Piece's time:
 { $card->$gotoStop($opened ? 'OPENED' : 'CLOSED') }
 ```
 
-In both cases the rule lives on the Tispi side. Marks and variables are the common vocabulary: declared on the Tispi side, read and written by scripts. A **variable** written from a script (`$n = 5`) is read by the tracks that use it. A written value is state: it is saved with the document (see the default values and `$$openDefaultValue`).
+In both cases the rule lives on the Tispi side. Marks and variables are the common vocabulary: declared on the Tispi side, read and written by scripts. A **variable** written from a script (`$n = 5`) is read by the tracks that use it. A written value is state: when the document is exported by the editor, it is saved with it (see the default values and `$$openDefaultValue`).
+
+### When the answer comes later
+
+A call to the business layer is usually asynchronous. Writing a variable does not re-evaluate anything: the value of a key is computed when the key is played. The script that receives the answer therefore writes the variable, then goes to the moment that reads it:
+
+```
+{ loadItems().then(items => { $items = items; $gotoStop(0); }) }
+```
+
+The direction of the calls is kept: the business layer never calls the interface. The script of the interface receives the answer and acts.
+
+This seam is also where a script leaves Tispi: `loadItems` is a plain JavaScript identifier. Everything Tispi can check stops at this call.
 
 ---
 
@@ -66,7 +78,7 @@ Tables do not compute — they store and return. Likewise, Tispi structures, ren
 
 **Independent testability.** A Tispi branch is verified without business logic: Faces, states, tracks, marks. Business logic is tested without Tispi: it receives calls and returns values.
 
-**Replaceability.** The rendering engine can change without touching the business logic; the business logic can evolve without changing the Tispi structure.
+**Replaceability.** The business logic can evolve without changing the Tispi structure. Conversely, the rendering engine could change without touching the business logic: this is an expected property, as there is only one engine today.
 
 **Readability.** A business developer needs to know the marks, the variables and the functions a branch calls — not the structure of the branch. A Tispi author needs to know which functions exist and what they return.
 
