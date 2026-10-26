@@ -20,4 +20,4 @@ They light up as the cursor passes. Each lamp carries its value: face number, po
 Vertical bars → distribution bus
 They connect the lamps across tracks — ensuring vertical synchronization between all pistes.
 
-<img width="1112" height="895" alt="tispi003" src="https://github.com/user-attachments/assets/ed769ac8-7669-451d-9a32-f8949cf86847" />
+<img width="1112" height="895" alt="tispi003" src="https://www.wvanim.fr/_demo/tispi003.png" />
