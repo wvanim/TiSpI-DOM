@@ -45,32 +45,35 @@ In both cases the rule lives on the Tispi side. Marks and variables are the comm
 
 ### When the answer comes later
 
-A call to the business layer is usually asynchronous. Writing a variable does not re-evaluate anything: the value of a key is computed when the key is played. The script that receives the answer therefore writes the variable, then goes to the moment that reads it:
+A call to the business layer is usually asynchronous. Writing a variable does not re-evaluate anything: the value of a key is computed when the key is played. The script that receives the answer therefore writes the variable, then goes to the moment that reads it. Two moments keep the request and its result apart:
 
 ```
-{ loadItems().then(items => { $items = items; $gotoStop(0); }) }
+&synchro 0:stop;
+&face    0:loading;  1:{ $items.length ? 'list' : 'empty' };
+&onTime  0:{ loadItems().then(items => { $items = items; $gotoStop(1); }) };
 ```
+
+`&synchro 0:stop;` starts the plate halted on 0: time does not advance by itself, and the Piece waits. A goto to a moment re-evaluates the state keys of that moment, so `&face` reads `$items` on arrival at 1. The result goes to a moment where no request is defined: the request is not restarted.
 
 The direction of the calls is kept: the business layer never calls the interface. The script of the interface receives the answer and acts.
 
-This seam is also where a script leaves Tispi: `loadItems` is a plain JavaScript identifier. Everything Tispi can check stops at this call.
+This seam is also where a script leaves Tispi: `loadItems` is a plain JavaScript identifier. Tispi does not analyze or guarantee what `loadItems` does; the interface script is responsible for using its result.
 
 ---
 
 ## Comparison with the backend
 
-The relationship is close to the one between a database table and backend code:
+Like a table exposing named columns, a Tispi branch exposes named variables that scripts read and write, and named marks they target, or move by changing their frame:
 
 ```
 Backend table           Tispi
 ──────────────────      ──────────────────
-columns                 variables
+columns                 variables, marks
 rows returned           values read by scripts
 UPDATE / INSERT         variable writes from scripts
-outgoing calls          script blocks calling the business layer
 ```
 
-Tables do not compute — they store and return. Likewise, Tispi structures, renders and keeps its time; what the values mean is the business layer's affair.
+The analogy concerns data access, not execution: Tispi also renders and controls time, and a value it reads has a meaning of presentation, the Face it selects.
 
 ---
 
@@ -78,8 +81,8 @@ Tables do not compute — they store and return. Likewise, Tispi structures, ren
 
 **Independent testability.** A Tispi branch is verified without business logic: Faces, states, tracks, marks. Business logic is tested without Tispi: it receives calls and returns values.
 
-**Replaceability.** The business logic can evolve without changing the Tispi structure. Conversely, the rendering engine could change without touching the business logic: this is an expected property, as there is only one engine today.
+**Replaceability.** The business implementation can evolve without changing the Tispi structure, provided the functions called by the interface scripts preserve their expected inputs, results and behavior. Marks and variables are another contract: the one between the interface scripts and the branch. Conversely, the rendering engine could change without touching the business logic: this is an expected property, as there is only one engine today.
 
-**Readability.** A business developer needs to know the marks, the variables and the functions a branch calls — not the structure of the branch. A Tispi author needs to know which functions exist and what they return.
+**Readability.** The author of the interface scripts needs to know the marks, the variables and the business functions they call — not the internal structure of the branch. The business implementation needs no knowledge of Tispi. One person may hold both roles; their responsibilities remain distinct.
 
-**Reusability.** The same Tispi branch connects to different business logics without modification: the same table, with different scripts.
+**Reusability.** The same Tispi branch can connect to different business implementations through adapted scripts, without changing its Faces or tracks.
