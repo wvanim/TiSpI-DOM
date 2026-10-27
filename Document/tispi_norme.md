@@ -147,7 +147,7 @@ Notez que les types sont communs en colonne.
 
 ## Annexe B : Historique
 
-**1990 - Un éditeur de pages interactives** (j'ai oublié le nom)  
+**1984 - Un éditeur de sprites animés et de pages interactives** 
 Les règles WvAnim étaient présentes, mais non formalisées.  
 Une barre d'état pilotait la suite de pages, les boutons, les roll-over, les cadres paginés...  
 Événement pour changement d'état : événement souris ou instruction programmée.  
